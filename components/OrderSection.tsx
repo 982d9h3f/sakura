@@ -32,11 +32,11 @@ const OrderSection: React.FC = () => {
 				>
 					<Box maxW="480px" textAlign="center">
 						<Text {...EN}>
-							Their journey has only just begun. It reminds us of what Apple's early
-							creations mean today.
+							{`Their journey has only just begun. It reminds us of what Apple's early
+							creations mean today.`}
 						</Text>
 						<Text {...JP}>
-							彼らの旅はまだ始まったばかりだ。アップルの初期のクリエイションが今日どのような意味を持つのかを思い出させてくれる。
+							{`彼らの旅はまだ始まったばかりだ。アップルの初期のクリエイションが今日どのような意味を持つのかを思い出させてくれる。`}
 						</Text>
 					</Box>
 

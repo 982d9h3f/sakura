@@ -27,13 +27,13 @@ const Gallery: React.FC = () => {
       <Box py={12} px={8} textAlign="center">
         <Box maxW="4xl" mx="auto" mb={8}>
           <Text {...EN}>
-            Just as cherry blossoms captivate hearts worldwide, we share the grace,
+			{`Just as cherry blossoms captivate hearts worldwide, we share the grace,
             precision, and artistry of Japan with every piece we create, every story
-            we help shape.
+            we help shape.`}
           </Text>
           <Text {...JP}>
-            桜の花が世界中の人々の心を魅了するように、私たちは日本の優美さ、正確さ、芸術性を、
-            私たちが創り出すすべての作品、そして私たちが形作るすべてのストーリーを分かち合っています
+			{`            桜の花が世界中の人々の心を魅了するように、私たちは日本の優美さ、正確さ、芸術性を、
+            私たちが創り出すすべての作品、そして私たちが形作るすべてのストーリーを分かち合っています。`}
           </Text>
         </Box>
         <Grid

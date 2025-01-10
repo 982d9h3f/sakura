@@ -7,11 +7,6 @@ import {
 	Text,
 	Image,
 } from "@chakra-ui/react";
-
-import Sidebar from "../../components/Sidebar";
-import FadeInWhenVisible from "../../components/FadeInWhenVisible";
-
-// --- 切り出したコンポーネントをインポート ---
 import MainVisual from "../../components/MainVisual";
 import SectionImages from "../../components/SectionImages";
 import LargeImage from "../../components/LargeImage";
@@ -26,20 +21,6 @@ const images = Array.from({ length: 8 }, (_, i) => {
 }).filter(Boolean);
 
 const Home: React.FC = () => {
-	// EN / JP の共通スタイル（使う・使わないは適宜調整）
-	const EN = {
-		fontSize: "17px",
-		color: "gray.600",
-		textShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-	};
-
-	const JP = {
-		fontSize: "16px",
-		color: "gray.600",
-		textShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-		mt: "8px",
-		mb: "50px",
-	};
 
 	return (
 		<>
