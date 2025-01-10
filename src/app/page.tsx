@@ -13,8 +13,6 @@ import LargeImage from "../../components/LargeImage";
 import Gallery from "../../components/Gallery";
 import Story from "../../components/Story";
 import OrderSection from "../../components/OrderSection";
-
-// 8枚の桜画像を読み込み（3.webpはスキップする例）
 const images = Array.from({ length: 8 }, (_, i) => {
 	const imageIndex = i + 1;
 	return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/${imageIndex}.webp`;
