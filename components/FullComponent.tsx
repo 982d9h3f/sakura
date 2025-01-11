@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text, Button ,Grid } from '@chakra-ui/react';
+import { Flex, Box, Text ,Grid } from '@chakra-ui/react';
 import RandomImageSwitcher from './RandomImageSwitcher';
 import ProductInfo from './ProductInfo';
 interface FullComponentProps {

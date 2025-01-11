@@ -9,8 +9,6 @@ import {
 	Heading,
 	useBreakpointValue,
 	Container,
-	Button,
-	Flex,
 	Accordion,
 	AccordionItem,
 	AccordionButton,
@@ -21,14 +19,11 @@ import DragAndDrop from "../../../../components/DragAndDrop";
 import { fetchAndDecryptFiles } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
-import axios from 'axios'; // Axios をインポート
+import axios from 'axios';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
-	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]); // 復号後のURLを保存するステート
-	const [error, setError] = useState<string | null>(null); // エラーを保存するステート
-	const [inviterId, setInviterId] = useState("");
-	const [visitorId, setVisitorId] = useState("");
+	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -39,21 +34,15 @@ const UserPage: React.FC = () => {
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				const [inviterId, visitorId, language] = id?.split('_') || [];
+				const [inviterId, visitorId] = id?.split('_') || [];
 				const response = await axios.post('/api/checkIds', { inviterId, visitorId, });
 				const decryptedBlobs = await fetchAndDecryptFiles(fileNames);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
 				if (response.data.success) {
 					console.log('OK');
-					setInviterId(inviterId);
-					setVisitorId(visitorId);
-				} else {
-					setError(response.data.message);
 				}
-			} catch (err: any) {
-				console.log('NG');
-				setError(err.message || 'An error occurred while fetching data.');
+			} catch {
 			}
 		};
 		fetchImages();
@@ -77,7 +66,7 @@ const UserPage: React.FC = () => {
 			<Container
 				maxW="800px"
 				borderRadius="lg"
-				p={{base:0,md:4}}
+				p={{ base: 0, md: 4 }}
 				shadow="md"
 				bg="pink.100"
 				display="flex"
@@ -96,7 +85,7 @@ const UserPage: React.FC = () => {
 					<Heading as="h1" fontSize={headerFontSize} textAlign="center">
 						✕
 					</Heading>
-					<Box w="100%"><img src={decryptedUrls[0]}/></Box>
+					<Box w="100%"><img src={decryptedUrls[0]} /></Box>
 
 
 					<VStack spacing="100px" align="center" mt="100px">
@@ -147,7 +136,7 @@ const UserPage: React.FC = () => {
 								</AccordionButton>
 							</h2>
 							<AccordionPanel p={0}>
-								<Box my="50px"/>
+								<Box my="50px" />
 								<FullComponent decryptedUrl={section1Images} text={textArray1} />
 								<Section2 decryptedUrl={section2Images} text={textArray1} />
 								<Section2 decryptedUrl={section3Images} text={textArray1} />

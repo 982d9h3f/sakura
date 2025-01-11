@@ -59,11 +59,5 @@ export async function POST(req: Request) {
 			visitorExists,
 			inviterExists,
 		});
-	} catch (error) {
-		console.error('Error querying DynamoDB:', error);
-		return NextResponse.json(
-			{ message: 'Internal Server Error', error: error.message },
-			{ status: 500 }
-		);
-	}
+	} catch  {	}
 }
