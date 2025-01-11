@@ -13,7 +13,7 @@ const MainVisual: React.FC = () => {
 			h="100vh"
 		>
 			<Box position="absolute" top={0} left={0} p="30px">
-				<Sidebar />
+				<Sidebar/>
 				<Heading as="h1" fontSize="4xl" color="white" mb={0}>
 					SAKURA
 				</Heading>

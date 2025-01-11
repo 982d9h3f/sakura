@@ -2,6 +2,7 @@
 	"name": "sakura",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
@@ -12,13 +13,17 @@
 		"@chakra-ui/react": "^2.7.2",
 		"@emotion/react": "^11.11.0",
 		"@emotion/styled": "^11.11.0",
+		"aws-sdk": "^2.1692.0",
+		"axios": "^1.7.9",
 		"framer-motion": "^11.16.4",
 		"next": "^15.1.4",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"sharp": "^0.33.5"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
+		"@types/aws-sdk": "^2.7.4",
 		"@types/node": "^20",
 		"@types/react": "^19.0.4",
 		"@types/react-dom": "^19",

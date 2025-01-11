@@ -9,14 +9,14 @@ const Sidebar: React.FC = () => {
 	};
 	return (
 		<Box
-			w="160px"
 			color="white"
 			textShadow="0px 0px 8px rgba(0, 0, 0, 0.8)"
 			display="flex"
-			flexDirection="column"
-			alignItems="center"
-			justifyContent="center"
+			flexDirection="row"
+			alignItems="left"
+			justifyContent="left"
 			gap="20px"
+			mb="10px"
 		>
 			<Box
 				as="button"
@@ -42,7 +42,6 @@ const Sidebar: React.FC = () => {
 			<Box
 				as="button"
 				onClick={() => handleScroll("Collection")}
-				mb={6}
 				_hover={{ color: "pink.300" }}
 			>
 				Collection

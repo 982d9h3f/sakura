@@ -19,7 +19,6 @@ const images = Array.from({ length: 8 }, (_, i) => {
 }).filter(Boolean);
 
 const Home: React.FC = () => {
-
 	return (
 		<>
 			<Box position="relative">
@@ -71,29 +70,18 @@ const Home: React.FC = () => {
 
 					</Flex>
 				</Box>
-
-				<Gallery />
-
-				{/* 背景が白いエリアを作る（80vh確保） */}
+				<Gallery/>
 				<Flex h="80vh" direction={{ base: "column", md: "row" }}>
 					<Box bg="white" flex="1" />
 					<Box flex="1" />
 				</Flex>
-
-				{/* ストーリー・テキストセクション */}
 				<Story />
-
-				{/* さらに白いエリアを 30vh 確保して次の要素と間をとる */}
 				<Flex h="30vh" direction={{ base: "column", md: "row" }}>
 					<Box bg="white" flex="1" />
 					<Box flex="1" />
 				</Flex>
-
-				{/* オーダー・セクション */}
 				<OrderSection />
 			</Box>
-
-			{/* フッター */}
 			<Box py={6} textAlign="center" bg="pink.200">
 				<Text fontSize="sm">
 					&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.
