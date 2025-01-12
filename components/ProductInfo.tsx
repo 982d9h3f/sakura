@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Text ,Button} from '@chakra-ui/react';
+import { Flex, Box, Text, Button } from '@chakra-ui/react';
 import MedalViewer from './MedalModel';
 interface ProductInfoProps {
 	imageUrl?: string;
@@ -7,12 +7,12 @@ interface ProductInfoProps {
 
 const ProductInfo: React.FC<ProductInfoProps> = () => {
 	return (<>
-		<Flex w="100%" h="300px" justify="space-between" align="center" my={5}>
-			<Box flex="1" display="flex" justifyContent="center" alignItems="center" maxW="200px">
-				<MedalViewer height={180} width={180}/>
-			</Box>
+		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
 
-			<Box flex="2" display="flex" justifyContent="center" alignItems="center">
+			<Box>
+				<MedalViewer height={180} width={180} />
+			</Box>
+			<Box display="flex" justifyContent="center" alignItems="center">
 				<Box>
 					<Box mb={4}>
 						<Text>{`銀価格が急騰中！！`}</Text>
