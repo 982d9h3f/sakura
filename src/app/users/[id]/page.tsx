@@ -22,11 +22,13 @@ import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
 import MedalViewer from '../../../../components/MedalModel';
+import SpinningBoxes from '../../../../components/SpinningBoxes';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const [text,setText]=useState([]);
+	const [start,setStart]=useState(false);
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -42,6 +44,7 @@ const UserPage: React.FC = () => {
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
 				setText(response.data.head.split(','));
+				setStart(true);
 			} catch {
 			}
 		};
@@ -64,6 +67,7 @@ const UserPage: React.FC = () => {
 	if (!d) return null;
 	return (
 		<Box >
+			<SpinningBoxes keepAnimation={!start}/>
 			<Container
 				maxW="800px"
 				borderRadius="lg"
