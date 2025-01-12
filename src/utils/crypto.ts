@@ -114,6 +114,40 @@ export async function fetchAndDecryptFiles(fileNames: string[]): Promise<Blob[]>
 	const baseUrl = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/encrypto`;
 
 	try {
+		// ファイルごとにfetchとdecrypt処理を並列実行
+		const decryptedBlobs = await Promise.all(
+			fileNames.map(async (fileName) => {
+				const fileUrl = `${baseUrl}/${fileName}`;
+				const response = await fetch(fileUrl);
+
+				if (!response.ok) {
+					console.error(`Failed to fetch file: ${fileUrl}`);
+					throw new Error(`Failed to fetch file: ${fileUrl}`);
+				}
+
+				// Fetch the encrypted file as a Blob
+				const encryptedBlob = await response.blob();
+
+				// Decrypt the file using decryptFile function
+				const decryptedBlob = await decryptFile(encryptedBlob);
+
+				return decryptedBlob; // decrypted Blob を返す
+			})
+		);
+
+		return decryptedBlobs; // 全ての Blob を含む配列を返す
+	} catch (error) {
+		console.error('Error while fetching or decrypting files:', error);
+		throw new Error('Failed to fetch and decrypt files');
+	}
+}
+
+/*
+export async function fetchAndDecryptFiles(fileNames: string[]): Promise<Blob[]> {
+	// 固定のベースURL
+	const baseUrl = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/encrypto`;
+
+	try {
 		const decryptedBlobs: Blob[] = [];
 
 		for (const fileName of fileNames) {
@@ -140,4 +174,4 @@ export async function fetchAndDecryptFiles(fileNames: string[]): Promise<Blob[]>
 		console.error('Error while fetching or decrypting files:', error);
 		throw new Error('Failed to fetch and decrypt files');
 	}
-}
+}*/

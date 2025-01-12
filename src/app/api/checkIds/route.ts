@@ -14,9 +14,6 @@ export async function POST(req: Request) {
 	try {
 		const body = await req.json();
 		const { visitorId, inviterId } = body;
-
-		console.log('Request Body:', body);
-
 		if (!visitorId || !inviterId) {
 			return NextResponse.json(
 				{ message: 'Missing required fields: visitorId and inviterId' },
@@ -54,10 +51,23 @@ export async function POST(req: Request) {
 			);
 		}
 
+		const cacheTableName = `${process.env.NEXT_PUBLIC_DYNAMO_PREFIX}-cache`;
+        const cacheParams = {
+            TableName: cacheTableName,
+            Key: { id: 'sakura' },
+            ProjectionExpression: 'head',
+        };
+
+		const cacheData = await dynamoDB.get(cacheParams).promise();
+		
+		// Correctly accessing the `head` attribute
+		const head = cacheData.Item ? cacheData.Item.head : null; 
+		
 		return NextResponse.json({
 			success: true,
 			visitorExists,
 			inviterExists,
+			head, // Return the `head` attribute instead of `headAttribute`
 		});
 	} catch  {	}
 }

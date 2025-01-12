@@ -15,9 +15,7 @@ const Section2: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => {
 			<Box w="100%" h="70vh" bg="gray.200">
 				<RandomImageSwitcher imageSet={imgsets} />
 			</Box>
-			<ProductInfo
-				imageUrl={decryptedUrl[3]}
-			/>
+			<ProductInfo/>
 		</Box>
 	);
 };

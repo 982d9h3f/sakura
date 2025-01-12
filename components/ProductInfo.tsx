@@ -15,9 +15,9 @@ const ProductInfo: React.FC<ProductInfoProps> = () => {
 			<Box flex="2" display="flex" justifyContent="center" alignItems="center">
 				<Box>
 					<Box mb={4}>
-						<Text>銀価格が急騰中！！</Text>
-						<Text>白く輝く純銀製</Text>
-						<Text>本物がわかるあなたへ💖✨️</Text>
+						<Text>{`銀価格が急騰中！！`}</Text>
+						<Text>{`白く輝く純銀製`}</Text>
+						<Text>{`本物がわかるあなたへ💖✨️`}</Text>
 					</Box>
 					<Box mb={4}>
 						<Text fontSize="12px">{`限定コンテンツがずーっと見放題`}</Text>

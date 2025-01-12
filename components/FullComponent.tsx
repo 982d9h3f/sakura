@@ -39,10 +39,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => 
 					</Box>
 				))}
 			</Grid>
-
-			<ProductInfo
-				imageUrl={decryptedUrl[3][0]}
-			/>
+			<ProductInfo/>
 		</Box>
 	);
 };

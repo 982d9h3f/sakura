@@ -2,7 +2,7 @@
 // npm install three
 // Install required dependencies
 // npm install three
-
+'use client' 
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -18,7 +18,9 @@ const MedalViewer: React.FC<MedalViewerProps> = ({ width, height }) => {
 
 	useEffect(() => {
 		// 親の幅と高さが有効でない場合は何もしない
+		if (typeof window === "undefined") return; 
 		if (!mountRef.current || !width || !height) return;
+		if (mountRef.current.childElementCount > 0) return;
 
 		// シーン、カメラ、レンダラーのセットアップ
 		const scene = new THREE.Scene();
@@ -48,12 +50,9 @@ const MedalViewer: React.FC<MedalViewerProps> = ({ width, height }) => {
 			"/SAKURA_Medal.glb",
 			(gltf) => {
 				model = gltf.scene;
-
-				// モデルの初期回転を設定
 				model.rotation.x = Math.PI / 2; // X軸周りに90度回転
 				model.rotation.y = 0;
 				model.rotation.z = 0;
-
 				scene.add(model);
 			},
 			undefined,
