@@ -13,13 +13,16 @@
 		"@chakra-ui/react": "^2.7.2",
 		"@emotion/react": "^11.11.0",
 		"@emotion/styled": "^11.11.0",
+		"@react-three/drei": "^9.120.6",
+		"@react-three/fiber": "^8.17.12",
 		"aws-sdk": "^2.1692.0",
 		"axios": "^1.7.9",
 		"framer-motion": "^11.16.4",
 		"next": "^15.1.4",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"sharp": "^0.33.5"
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"sharp": "^0.33.5",
+		"three": "^0.172.0"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",

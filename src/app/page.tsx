@@ -17,7 +17,7 @@ const images = Array.from({ length: 8 }, (_, i) => {
 	const imageIndex = i + 1;
 	return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/${imageIndex}.webp`;
 }).filter(Boolean);
-
+import MedalViewer from '../../components/MedalModel';
 const Home: React.FC = () => {
 	return (
 		<>
@@ -58,19 +58,13 @@ const Home: React.FC = () => {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Image
-								src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal.png`}
-								alt="Sakura 1"
-								maxW="500px"
-								maxH="500px"
-								objectFit="cover"
-								ml={{ base: "10px", md: "30px" }}
-							/>
+							<Box>
+								<MedalViewer width={400} height={400} />
+							</Box>
 						</Box>
-
 					</Flex>
 				</Box>
-				<Gallery/>
+				<Gallery />
 				<Flex h="80vh" direction={{ base: "column", md: "row" }}>
 					<Box bg="white" flex="1" />
 					<Box flex="1" />

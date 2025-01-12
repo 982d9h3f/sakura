@@ -1,15 +1,15 @@
 import React from 'react';
 import { Flex, Box, Text ,Button} from '@chakra-ui/react';
-
+import MedalViewer from './MedalModel';
 interface ProductInfoProps {
-	imageUrl: string;
+	imageUrl?: string;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ imageUrl }) => {
+const ProductInfo: React.FC<ProductInfoProps> = () => {
 	return (<>
-		<Flex w="100%" h="300px" justify="space-between" align="center">
+		<Flex w="100%" h="300px" justify="space-between" align="center" my={5}>
 			<Box flex="1" display="flex" justifyContent="center" alignItems="center" maxW="200px">
-				<img src={imageUrl} alt="Product Image" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+				<MedalViewer height={180} width={180}/>
 			</Box>
 
 			<Box flex="2" display="flex" justifyContent="center" alignItems="center">

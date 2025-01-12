@@ -14,12 +14,14 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
+	SimpleGrid,
 } from '@chakra-ui/react';
 import DragAndDrop from "../../../../components/DragAndDrop";
 import { fetchAndDecryptFiles } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
+import MedalViewer from '../../../../components/MedalModel';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -60,6 +62,9 @@ const UserPage: React.FC = () => {
 	const section2Images = [decryptedUrls[2], decryptedUrls[3], decryptedUrls[4], decryptedUrls[1]];
 	const section3Images = [decryptedUrls[5], decryptedUrls[6], decryptedUrls[7], decryptedUrls[1]];
 	const section4Images = [decryptedUrls[8], decryptedUrls[9], decryptedUrls[10], decryptedUrls[1]];
+
+	const d = useBreakpointValue({ base: 180, md: 220 });
+	if (!d) return null;
 	return (
 		<Box >
 			<DragAndDrop onDrop={() => { }} />
@@ -90,12 +95,35 @@ const UserPage: React.FC = () => {
 
 					<VStack spacing="100px" align="center" mt="100px">
 						<Text fontSize="18px" textAlign="center">
-							ちょ～特別な会員コインです🤗 SAKURAさんが作ってくれました👏
+							SAKURAさんとコラボ企画！！
 						</Text>
-						<Box maxW="300px">
-							<img src={decryptedUrls[1]} alt="Special Coin" />
-							<Text fontSize="18px" textAlign="center" mt={1}>
-								とっても重宝されるピュアシルバー製！
+						<Box
+							w="100%"
+							display="flex"
+							flexDirection="column"
+							alignItems="center"
+							textAlign="center"
+						>
+							<Text fontSize="18px">
+								ちょ～特別な会員コインができました🤗
+							</Text>
+							<Box w={{ base: d * 2, md: d * 3 }} mr={{ base:0, md:8 }} my={5}>
+								<SimpleGrid
+									columns={{ base: 2, md: 4 }}
+									spacing={0}
+								>
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+								</SimpleGrid>
+							</Box>
+							<Text fontSize="18px">
+								とっても重宝されるピュアシルバー製💎✨️✨️
 							</Text>
 						</Box>
 
@@ -103,7 +131,7 @@ const UserPage: React.FC = () => {
 							そしてそして、、何より重要な、、
 						</Text>
 						<Text fontSize="lg" textAlign="center">
-							メダル購入者に{' '}
+							コイン所有者に{' '}
 							<Box as="span" fontFamily="'Caveat', cursive" fontSize="2xl" color="pink.500">
 								ドキドキ
 							</Box>{' '}
