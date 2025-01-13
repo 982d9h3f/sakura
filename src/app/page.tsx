@@ -12,7 +12,6 @@ import SectionImages from "../../components/SectionImages";
 import LargeImage from "../../components/LargeImage";
 import Gallery from "../../components/Gallery";
 import Story from "../../components/Story";
-import OrderSection from "../../components/OrderSection";
 import Checkout from '../../components/Checkout';
 const images = Array.from({ length: 8 }, (_, i) => {
 	const imageIndex = i + 1;

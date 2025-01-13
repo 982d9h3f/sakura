@@ -1,13 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Box, Heading, Text, VStack, Spinner, Button, Divider, Link } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Spinner, Button, Divider } from "@chakra-ui/react";
 import NextLink from "next/link";
+import Stripe from 'stripe';
+interface StripeSession {
+	id: string;
+	amount_total: number | null;
+	currency: string | null;
+	customer_details?: Stripe.Checkout.Session.CustomerDetails | null;
+	shipping_details?: Stripe.Checkout.Session.ShippingDetails | null;
+	metadata?: {
+		[key: string]: string;
+	};
+}
+
 
 export default function CancelPage() {
 	const searchParams = useSearchParams();
 	const sessionId = searchParams.get("session_id");
-	const [sessionData, setSessionData] = useState<any>(null);
+	const [sessionData, setSessionData] = useState<StripeSession>();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -17,8 +29,7 @@ export default function CancelPage() {
 				const response = await fetch(`/api/fetch-session?session_id=${sessionId}`);
 				const data = await response.json();
 				setSessionData(data);
-			} catch (error) {
-				console.error("Error fetching session data:", error);
+			} catch {
 			} finally {
 				setLoading(false);
 			}
@@ -49,7 +60,7 @@ export default function CancelPage() {
 			</VStack>
 		);
 
-	const { shipping_details, customer_details, metadata } = sessionData;
+	const { metadata } = sessionData;
 
 	const homeLink = metadata?.creatorId && metadata?.userId
 		? `${process.env.NEXT_PUBLIC_APP_URL}`

@@ -39,21 +39,9 @@ export async function GET(request: NextRequest) {
 		});
 
 		return NextResponse.json(session);
-	} catch (error: any) {
-		if (error instanceof Stripe.errors.StripeError) {
-			console.error('Stripe API Error:', {
-				type: error.type,
-				code: error.code,
-				message: error.message,
-				param: error.param,
-				raw: error.raw,
-			});
-		} else {
-			console.error('Unexpected Error:', error);
-		}
+	} catch {
 
 		return NextResponse.json(
-			{ error: 'Failed to fetch Stripe session', message: error.message },
 			{ status: 500 }
 		);
 	}

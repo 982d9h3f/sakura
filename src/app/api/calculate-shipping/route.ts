@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
 
 		return NextResponse.json({ id: session.id, url: session.url });
 
-	} catch (error) {
+	} catch  {
 
 		return NextResponse.json(
 			{ status: 500 }

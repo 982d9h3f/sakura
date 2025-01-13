@@ -3,13 +3,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Box, Heading, Text, VStack, Spinner, Button, Divider, Link } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Spinner, Button, Divider } from "@chakra-ui/react";
 import NextLink from "next/link";
+import Stripe from 'stripe';
+interface StripeSession {
+	id: string;
+	amount_total: number | null;
+	currency: string | null;
+	customer_details?: Stripe.Checkout.Session.CustomerDetails | null;
+	shipping_details?: Stripe.Checkout.Session.ShippingDetails | null;
+	metadata?: {
+		[key: string]: string;
+	};
+}
 
 export default function SuccessPage() {
 	const searchParams = useSearchParams();
 	const sessionId = searchParams.get("session_id");
-	const [sessionData, setSessionData] = useState<any>(null);
+	const [sessionData, setSessionData] = useState<StripeSession>();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -89,7 +100,10 @@ export default function SuccessPage() {
 				<Divider mb="6" borderColor="pink.200" />
 				<VStack align="start" spacing="2" mb="6" fontSize="16px" color="gray.600">
 					<Text>
-						<strong>Total Amount :</strong> {(amount_total / 100).toFixed(2)} {currency.toUpperCase()}
+						<strong>Total Amount :</strong>{" "}
+						{amount_total
+							? `${(amount_total / 100).toFixed(2)} ${currency?.toUpperCase() || "USD"}`
+							: "N/A"}
 					</Text>
 					<Text >
 						<strong>Name :</strong> {shipping_details?.name}
@@ -101,7 +115,7 @@ export default function SuccessPage() {
 						<strong>Email :</strong> {customer_details?.email}
 					</Text>
 				</VStack>
-				<Divider mb="6" borderColor="pink.200"/>
+				<Divider mb="6" borderColor="pink.200" />
 				<Button as={NextLink} href={homeLink} colorScheme="pink" size="lg">
 					Home
 				</Button>
