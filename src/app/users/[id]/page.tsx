@@ -109,7 +109,9 @@ const UserPage: React.FC = () => {
 							<Text fontSize="18px">
 								{text[1]}
 							</Text>
-							<MedalViewer width={350} height={350} />
+							<Box m={10}>
+								<MedalViewer width={500} height={500} />
+							</Box>
 							<Box w={{ base: d * 2, md: d * 3 }} mr={{ base: 0, md: 8 }} my={5}>
 								<SimpleGrid
 									columns={{ base: 2, md: 4 }}
@@ -161,7 +163,10 @@ const UserPage: React.FC = () => {
 							</h2>
 							<AccordionPanel p={0}>
 								<Box my="50px" />
-
+								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
 							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Flex, Box, Text } from '@chakra-ui/react';
-import MedalViewer from './MedalModel';
+//import MedalViewer from './MedalModel';
 import CheckoutForm from './CheckoutForm';
 interface ProductInfoProps {
 	creatorId: string;
 	userId: string;
 }
-//
+//<MedalViewer height={180} width={180} />
 const ProductInfo: React.FC<ProductInfoProps> = ({ creatorId, userId }) => {
 	return (<>
 		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
-			<Box>
-				<MedalViewer height={180} width={180} />
+			<Box w="100%" maxW="200px">
+				<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`}/>
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center">
 				<Box>
