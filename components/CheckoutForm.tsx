@@ -70,6 +70,7 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId }) => {
 					</Text>
 					<Box flex="1" maxWidth="350px">
 						<Select
+							instanceId="checkout-country-select"
 							options={countryOptions}
 							placeholder=""
 							value={selectedCountry}

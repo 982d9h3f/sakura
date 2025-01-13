@@ -6,7 +6,7 @@ interface ProductInfoProps {
 	creatorId: string;
 	userId: string;
 }
-
+//
 const ProductInfo: React.FC<ProductInfoProps> = ({ creatorId, userId }) => {
 	return (<>
 		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>

@@ -27,10 +27,10 @@ const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
-	const [text,setText]=useState([]);
-	const [start,setStart]=useState(false);
-	const [visitorId,setVisitorId]=useState('');
-	const [inviterId,setInviterId]=useState('');
+	const [text, setText] = useState([]);
+	const [start, setStart] = useState(false);
+	const [visitorId, setVisitorId] = useState('');
+	const [inviterId, setInviterId] = useState('');
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -71,7 +71,7 @@ const UserPage: React.FC = () => {
 	if (!d) return null;
 	return (
 		<Box >
-			<SpinningBoxes keepAnimation={!start}/>
+			<SpinningBoxes keepAnimation={!start} />
 			<Container
 				maxW="800px"
 				borderRadius="lg"
@@ -167,10 +167,10 @@ const UserPage: React.FC = () => {
 							</h2>
 							<AccordionPanel p={0}>
 								<Box my="50px" />
-								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
+								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
 							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>
@@ -182,5 +182,3 @@ const UserPage: React.FC = () => {
 
 export default UserPage;
 
-//					<FullComponent decryptedUrl={section2Images} text={textArray2}/>
-//				<FullComponent decryptedUrl={section3Images} text={textArray3}/>

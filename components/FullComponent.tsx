@@ -46,3 +46,5 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creato
 };
 
 export default FullComponent;
+
+//	<ProductInfo creatorId={creatorId} userId={userId}/>

@@ -71,6 +71,11 @@ const MedalViewer: React.FC<MedalViewerProps> = ({ width, height }) => {
 		const animate = () => {
 			requestAnimationFrame(animate);
 
+			if (window.innerWidth <= 768) {
+				renderer.render(scene, camera);
+				return;
+			}
+
 			// モデルがロードされていれば回転させる
 			if (model) {
 				const range = Math.PI / 45; // 振動範囲を定義
@@ -97,95 +102,3 @@ const MedalViewer: React.FC<MedalViewerProps> = ({ width, height }) => {
 };
 
 export default MedalViewer;
-
-/*
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
-const MedalViewer = () => {
-	const mountRef = useRef(null);
-
-	useEffect(() => {
-		if (!mountRef.current) return;
-
-		// Set up the scene, camera, and renderer
-		const scene = new THREE.Scene();
-		//scene.background = new THREE.Color("rgba(77, 9, 9, 0)");
-		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		camera.position.z = 5;
-
-		const renderer = new THREE.WebGLRenderer({ alpha: true });
-		renderer.setClearColor(0x000000, 0);
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		mountRef.current.appendChild(renderer.domElement);
-
-		// Add ambient light
-		const ambientLight = new THREE.AmbientLight(0xffffff, 50);
-		scene.add(ambientLight);
-
-		// Add directional light
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
-		directionalLight.position.set(5, 5, 5);
-		scene.add(directionalLight);
-
-		// Load the GLTF model
-		const loader = new GLTFLoader();
-		let model;
-		let time = 0; // Time variable for the animation
-
-		loader.load(
-			"/SAKURA_Medal.glb",
-			(gltf) => {
-				model = gltf.scene;
-
-				// Set initial rotation of the model
-				model.rotation.x = Math.PI / 2; // Rotate 90 degrees around X-axis
-				model.rotation.y = 0; // No rotation around Y-axis
-				model.rotation.z = 0; // No rotation around Z-axis
-
-				scene.add(model);
-			},
-			undefined,
-			(error) => {
-				console.error("An error occurred loading the model:", error);
-			}
-		);
-
-		// Add orbit controls
-		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.enableZoom = false; // Disable zoom with mouse wheel
-		controls.enableRotate = false; // Disable rotation
-		controls.enablePan = false; // Disable pan
-
-		// Animation loop
-		const animate = () => {
-			requestAnimationFrame(animate);
-
-			// Rotate the model if it's loaded
-			if (model) {
-				const range = Math.PI / 40; // Define the range of oscillation
-				time += 0.01; // Increment the time variable
-				model.rotation.x = Math.PI / 2 + range * Math.sin(time); // Oscillate around X-axis
-				model.rotation.y = range * Math.sin(time * 1.5); // Oscillate around Y-axis at a slightly different speed
-			}
-
-			controls.update();
-			renderer.render(scene, camera);
-		};
-		animate();
-
-		// Cleanup on component unmount
-		return () => {
-			if (mountRef.current && renderer.domElement) {
-				mountRef.current.removeChild(renderer.domElement);
-			}
-		};
-	}, []);
-
-	return <div ref={mountRef} style={{ width: "100%", height: "100%" }} />;
-};
-
-export default MedalViewer;
-*/
