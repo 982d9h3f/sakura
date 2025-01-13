@@ -1,7 +1,7 @@
 // api/cancel/page.tsx
 import React, { Suspense } from "react";
 import { VStack, Spinner, Text } from "@chakra-ui/react";
-import CancelPageContent from "./CancelPageContent"; // 分割したコンポーネントをインポート
+import CancelPageContent from "./CancelPageContent"; // 分割したコンポーネントをインポー
 
 export default function CancelPage() {
 	return (
