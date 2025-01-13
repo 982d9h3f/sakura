@@ -1,13 +1,13 @@
 import React from 'react';
-import { Flex, Box, Text, Button } from '@chakra-ui/react';
+import { Flex, Box, Text } from '@chakra-ui/react';
 import MedalViewer from './MedalModel';
 import CheckoutForm from './CheckoutForm';
 interface ProductInfoProps {
-	creatorId:string;
-	userId:string;
+	creatorId: string;
+	userId: string;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({creatorId,userId}) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ creatorId, userId }) => {
 	return (<>
 		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
 			<Box>
@@ -39,7 +39,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({creatorId,userId}) => {
 				</Box>
 			</Box>
 		</Flex>
-		<CheckoutForm creatorId={creatorId} userId={userId}/>
+		<Box mb={5}>
+			<CheckoutForm creatorId={creatorId} userId={userId} />
+		</Box>
 	</>
 	);
 };

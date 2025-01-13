@@ -1,26 +1,11 @@
-import { useState } from 'react';
-import { Box, Flex, Text, Input, Button } from "@chakra-ui/react";
-import { countries, countries2, countries3, countries4, countries5 } from './countries';
-import axios from 'axios';
-import Select from 'react-select';
+import { Box, Flex, Text} from "@chakra-ui/react";
 import CheckoutForm from './CheckoutForm';
-const formatPostalCode = (value: string): string => {
-	// 数字と小文字のみを受け付け、ハイフン付きの形式に変換
-	const cleanValue = value.replace(/[^a-z0-9]/g, ''); // 非小文字・非数字を削除
-	if (cleanValue.length <= 3) {
-		return cleanValue;
-	} else if (cleanValue.length <= 7) {
-		return `${cleanValue.slice(0, 3)}-${cleanValue.slice(3)}`;
-	}
-	return `${cleanValue.slice(0, 3)}-${cleanValue.slice(3, 7)}`;
-};
-
 interface CheckoutProps {
 	creatorId?: string;
 	userId?: string;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ creatorId, userId }) => {
+const Checkout: React.FC<CheckoutProps> = ({ }) => {
 
 	const EN = {
 		fontSize: "17px",

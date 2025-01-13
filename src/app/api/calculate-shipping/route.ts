@@ -1,7 +1,7 @@
 // src/app/api/calculate-shipping/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { countries, countries2, countries3, countries4, countries5, stripeSupportedCountries } from '../../../../components/countries';
+import { countries, countries2, countries3, countries4, countries5 } from '../../../../components/countries';
 
 const allCountries = [
 	...countries,
@@ -11,12 +11,6 @@ const allCountries = [
 	...countries5,
 ];
 
-// 許可された国コードのリストを抽出
-const allowedCountries = allCountries
-	.map((country) => country.code)
-	.filter((code) => stripeSupportedCountries.includes(code));
-
-
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 	apiVersion: '2024-12-18.acacia',
@@ -24,8 +18,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 
 const getCountryCode = (countryName: string): string | undefined => {
 	const country = allCountries.find((c) => c.name === countryName);
-	return country?.code;
+	return country?.code; // ここがundefinedでないことを確認
 };
+
 
 // Define shipping costs for each group in USD
 const exchangeRateJPYToUSD = 120;
@@ -70,10 +65,9 @@ export async function POST(request: NextRequest) {
 		console.log('Origin:', origin);
 
 		const countryCode = getCountryCode(selectedCountry.label);
-		if (!countryCode) {
+		if (!countryCode || countryCode.length !== 2) {
 			throw new Error('Invalid country name or unsupported country.');
 		}
-
 
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
@@ -87,7 +81,7 @@ export async function POST(request: NextRequest) {
 					quantity,
 				},
 			],
-			shipping_address_collection: { allowed_countries: [countryCode] },
+			shipping_address_collection: { allowed_countries: [countryCode as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry] },
 			shipping_options: [
 				{
 					shipping_rate_data: {
@@ -100,20 +94,20 @@ export async function POST(request: NextRequest) {
 			],
 			mode: 'payment',
 			success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${origin}`,
-			metadata: { // 独自データをmetadataに含める
-                creatorId, // ここに独自ID（例: オーダーID）を追加
-                userId, // 必要なら他の独自データも追加可能
+			cancel_url: `${origin}/cancel?session_id={CHECKOUT_SESSION_ID}`,
+			metadata: {
+				creatorId,
+				userId,
 				quantity,
-            },
+			},
 		});
+
 
 		return NextResponse.json({ id: session.id, url: session.url });
 
 	} catch (error) {
-		console.error('Error creating Stripe Checkout session:', error.stack || error.message || error);
+
 		return NextResponse.json(
-			{ error: 'Failed to create Stripe Checkout session', message: error.message },
 			{ status: 500 }
 		);
 	}
