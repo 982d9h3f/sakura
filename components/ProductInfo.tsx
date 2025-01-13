@@ -1,17 +1,22 @@
 import React from 'react';
-import { Flex, Box, Text } from '@chakra-ui/react';
-//import MedalViewer from './MedalModel';
+import { Flex, Box, Text, useMediaQuery } from '@chakra-ui/react';
+import MedalViewer from './MedalModel';
 import CheckoutForm from './CheckoutForm';
 interface ProductInfoProps {
 	creatorId: string;
 	userId: string;
 }
-//<MedalViewer height={180} width={180} />
+
 const ProductInfo: React.FC<ProductInfoProps> = ({ creatorId, userId }) => {
+	const [isMobile] = useMediaQuery('(max-width: 768px)');
 	return (<>
 		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
 			<Box w="100%" maxW="200px">
-				<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`}/>
+				{isMobile ? (
+					<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
+				) : (
+					<MedalViewer height={180} width={180} />
+				)}
 			</Box>
 			<Box display="flex" justifyContent="center" alignItems="center">
 				<Box>

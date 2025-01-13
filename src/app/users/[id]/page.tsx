@@ -14,7 +14,7 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
-	SimpleGrid,
+	useMediaQuery,
 } from '@chakra-ui/react';
 //import DragAndDrop from "../../../../components/DragAndDrop";
 import { fetchAndDecryptFiles } from '../../../utils/crypto';
@@ -25,6 +25,7 @@ import MedalViewer from '../../../../components/MedalModel';
 import SpinningBoxes from '../../../../components/SpinningBoxes';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
+	const [isMobile] = useMediaQuery('(max-width: 768px)');
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const [text, setText] = useState([]);
@@ -109,16 +110,14 @@ const UserPage: React.FC = () => {
 							<Text fontSize="18px">
 								{text[1]}
 							</Text>
-							<Box m={10}>
-								<MedalViewer width={350} height={350} />
-							</Box>
-							<Box w={{ base: d * 2, md: d * 3 }} mr={{ base: 0, md: 8 }} my={5}>
-								<SimpleGrid
-									columns={{ base: 2, md: 4 }}
-									spacing={0}
-								>
-
-								</SimpleGrid>
+							<Box m={5}>
+								{isMobile ? (
+									<Box maxW="200px">
+										<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
+									</Box>
+								) : (
+									<MedalViewer height={350} width={350} />
+								)}
 							</Box>
 							<Text fontSize="18px">
 								{text[2]}
@@ -143,8 +142,8 @@ const UserPage: React.FC = () => {
 							{text[9]}
 						</Text>
 					</VStack>
-					<Accordion allowToggle my="50px">
-						<AccordionItem>
+					<Accordion allowToggle my="50px" border="none" _focus={{ boxShadow: 'none' }}>
+						<AccordionItem border="none">
 							<h2>
 								<AccordionButton
 									bg="pink"
@@ -154,6 +153,8 @@ const UserPage: React.FC = () => {
 									justifyContent="center" /* ボタン内のテキストとアイコンを中央揃え */
 									alignItems="center"
 									borderRadius="10px"
+									border="none" /* すべてのボーダーを削除 */
+									_focus={{ boxShadow: 'none' }} /* フォーカス時のボーダー影も削除 */
 								>
 									<Box flex="1" textAlign="center" color="black">
 										あける
