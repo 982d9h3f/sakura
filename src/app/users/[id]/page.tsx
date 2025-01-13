@@ -110,7 +110,7 @@ const UserPage: React.FC = () => {
 								{text[1]}
 							</Text>
 							<Box m={10}>
-								<MedalViewer width={500} height={500} />
+								<MedalViewer width={350} height={350} />
 							</Box>
 							<Box w={{ base: d * 2, md: d * 3 }} mr={{ base: 0, md: 8 }} my={5}>
 								<SimpleGrid
