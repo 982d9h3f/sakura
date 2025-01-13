@@ -32,6 +32,7 @@ const UserPage: React.FC = () => {
 	const [start, setStart] = useState(false);
 	const [visitorId, setVisitorId] = useState('');
 	const [inviterId, setInviterId] = useState('');
+	const [lang,setLang] = useState('');
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -41,14 +42,15 @@ const UserPage: React.FC = () => {
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				const [inviterId, visitorId] = id?.split('_') || [];
+				const [inviterId, visitorId,lang] = id?.split('_') || [];
 				setInviterId(inviterId);
 				setVisitorId(visitorId);
-				const response = await axios.post('/api/checkIds', { inviterId, visitorId, });
+				setLang(lang);
+				const response = await axios.post('/api/checkIds', { inviterId, visitorId,lang });
 				const decryptedBlobs = await fetchAndDecryptFiles(fileNames);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
-				setText(response.data.head.split(','));
+				setText(response.data.text.split(','));
 				setStart(true);
 			} catch {
 			}
@@ -87,7 +89,7 @@ const UserPage: React.FC = () => {
 			>
 				<Box w="100%">
 					<Text>
-						コラボレーション
+						{lang=='jp'?'コラボレーション':'collaboration'}
 					</Text>
 					<Heading as="h1" fontSize={headerFontSize} textAlign="center">
 						SAKURA
@@ -153,17 +155,17 @@ const UserPage: React.FC = () => {
 									_focus={{ boxShadow: 'none' }} /* フォーカス時のボーダー影も削除 */
 								>
 									<Box flex="1" textAlign="center" color="black">
-										あける
+										{lang=="jp"?"あける💖":"Open💖"}
 									</Box>
 									<AccordionIcon />
 								</AccordionButton>
 							</h2>
 							<AccordionPanel p={0}>
 								<Box my="50px" />
-								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+								<Section2 decryptedUrl={section2Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
+								<Section2 decryptedUrl={section3Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
+								<Section2 decryptedUrl={section4Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
 							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>

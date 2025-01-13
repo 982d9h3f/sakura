@@ -7,6 +7,7 @@ import Select from 'react-select';
 interface CheckoutProps {
 	creatorId?: string;
 	userId?: string;
+	text?:string;
 }
 
 interface CountryOption {
@@ -14,7 +15,7 @@ interface CountryOption {
 	label: string;
 }
 
-const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId }) => {
+const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId,text }) => {
 	const [loading, setLoading] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(null);
 
@@ -42,7 +43,7 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId }) => {
 		setSelectedCountry(selectedOption);
 	};
 
-	const allCountries = [...countries2, ...countries3, ...countries4, ...countries5, ...countries];
+	const allCountries = [...countries,...countries2, ...countries3, ...countries4, ...countries5];
 	const countryOptions: CountryOption[] = allCountries.map((country) => ({
 		value: country.code,
 		label: country.name,
@@ -95,7 +96,7 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId }) => {
 					onClick={handleCheckout}
 					disabled={loading || !selectedCountry}
 				>
-					Order
+					{text?text:'Proceed to order'}
 				</Button>
 			</Box>
 		</>

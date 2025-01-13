@@ -13,8 +13,8 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 export async function POST(req: Request) {
 	try {
 		const body = await req.json();
-		const { visitorId, inviterId } = body;
-		if (!visitorId || !inviterId) {
+		const { visitorId, inviterId,lang } = body;
+		if (!visitorId || !inviterId || !lang) {
 			return NextResponse.json(
 				{ message: 'Missing required fields: visitorId and inviterId' },
 				{ status: 400 }
@@ -55,19 +55,20 @@ export async function POST(req: Request) {
         const cacheParams = {
             TableName: cacheTableName,
             Key: { id: 'sakura' },
-            ProjectionExpression: 'head',
+			ProjectionExpression: `#lang`,
+			ExpressionAttributeNames: {
+				'#lang': lang,
+			},
         };
 
 		const cacheData = await dynamoDB.get(cacheParams).promise();
-		
-		// Correctly accessing the `head` attribute
-		const head = cacheData.Item ? cacheData.Item.head : null; 
+		const text = cacheData.Item ? cacheData.Item[lang] : null; 
 		
 		return NextResponse.json({
 			success: true,
 			visitorExists,
 			inviterExists,
-			head, // Return the `head` attribute instead of `headAttribute`
+			text,
 		});
 	} catch  {	}
 }

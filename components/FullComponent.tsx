@@ -7,8 +7,9 @@ interface FullComponentProps {
 	text: string[];
 	creatorId:string;
 	userId:string;
+	lang:string;
 }
-const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creatorId,userId }) => {
+const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creatorId,userId,lang }) => {
 	return (
 		<Box w="100%" p={0}>
 			<Grid
@@ -40,7 +41,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creato
 					</Box>
 				))}
 			</Grid>
-			<ProductInfo creatorId={creatorId} userId={userId}/>
+			<ProductInfo creatorId={creatorId} userId={userId} text={text.slice(3, 9)} lang={lang}/>
 		</Box>
 	);
 };
