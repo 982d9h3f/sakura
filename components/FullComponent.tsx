@@ -5,8 +5,10 @@ import ProductInfo from './ProductInfo';
 interface FullComponentProps {
 	decryptedUrl: string[][];
 	text: string[];
+	creatorId:string;
+	userId:string;
 }
-const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => {
+const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creatorId,userId }) => {
 	return (
 		<Box w="100%" p={0}>
 			<Grid
@@ -16,12 +18,11 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => 
 			>
 				{[0, 1, 2].map((index) => (
 					<Box key={index} textAlign="center" minHeight="200px">
-						{/* Flexでテキスト部分を下寄せに */}
 						<Flex
 							direction="column"
-							justify="flex-end"  // 下端揃え
+							justify="flex-end"
 							h="auto"
-							minH="2.5em"        // 一行分の高さを確保（必要に応じ
+							minH="2.5em"
 							mb={2}
 						>
 							<Text>{text[index]}</Text>
@@ -39,7 +40,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => 
 					</Box>
 				))}
 			</Grid>
-			<ProductInfo/>
+			<ProductInfo creatorId={creatorId} userId={userId}/>
 		</Box>
 	);
 };

@@ -29,6 +29,8 @@ const UserPage: React.FC = () => {
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const [text,setText]=useState([]);
 	const [start,setStart]=useState(false);
+	const [visitorId,setVisitorId]=useState('');
+	const [inviterId,setInviterId]=useState('');
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -39,6 +41,8 @@ const UserPage: React.FC = () => {
 		const fetchImages = async () => {
 			try {
 				const [inviterId, visitorId] = id?.split('_') || [];
+				setInviterId(inviterId);
+				setVisitorId(visitorId);
 				const response = await axios.post('/api/checkIds', { inviterId, visitorId, });
 				const decryptedBlobs = await fetchAndDecryptFiles(fileNames);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
@@ -163,10 +167,10 @@ const UserPage: React.FC = () => {
 							</h2>
 							<AccordionPanel p={0}>
 								<Box my="50px" />
-								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} />
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} />
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} />
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} />
+								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
+								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
+								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
+								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId}/>
 							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>

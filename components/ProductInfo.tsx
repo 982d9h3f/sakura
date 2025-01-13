@@ -1,14 +1,15 @@
 import React from 'react';
 import { Flex, Box, Text, Button } from '@chakra-ui/react';
 import MedalViewer from './MedalModel';
+import CheckoutForm from './CheckoutForm';
 interface ProductInfoProps {
-	imageUrl?: string;
+	creatorId:string;
+	userId:string;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = () => {
+const ProductInfo: React.FC<ProductInfoProps> = ({creatorId,userId}) => {
 	return (<>
 		<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
-
 			<Box>
 				<MedalViewer height={180} width={180} />
 			</Box>
@@ -21,12 +22,10 @@ const ProductInfo: React.FC<ProductInfoProps> = () => {
 					</Box>
 					<Box mb={4}>
 						<Text fontSize="12px">{`限定コンテンツがずーっと見放題`}</Text>
-						<Text fontSize="xl" fontWeight="bold" color="red.500">{`価格: 4980円`}</Text>
-						<Text fontSize="12px" color="gray.500">{`（税込み・送料込み）`}</Text>
+						<Text fontSize="xl" fontWeight="bold" color="red.500">{`価格: $33.00`}</Text>
+						<Text fontSize="12px" color="gray.500">{`（税込み）`}</Text>
 						<Text fontSize="12px" color="gray.500">{`特典はコイン購入後に即時付与`}</Text>
 					</Box>
-
-					{/* 注意書き */}
 					<Box fontSize="12px" color="gray.600">
 						<Text>{`※数量限定販売、在庫がなくなり次第終了となります。`}</Text>
 						<Text>
@@ -40,6 +39,14 @@ const ProductInfo: React.FC<ProductInfoProps> = () => {
 				</Box>
 			</Box>
 		</Flex>
+		<CheckoutForm creatorId={creatorId} userId={userId}/>
+	</>
+	);
+};
+
+export default ProductInfo;
+
+/*
 		<Button
 			colorScheme="pink"
 			size="lg"
@@ -49,8 +56,5 @@ const ProductInfo: React.FC<ProductInfoProps> = () => {
 		>
 			会員コインをゲットする
 		</Button>
-	</>
-	);
-};
 
-export default ProductInfo;
+*/

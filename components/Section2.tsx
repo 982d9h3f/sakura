@@ -5,9 +5,11 @@ import ProductInfo from './ProductInfo';
 interface FullComponentProps {
 	decryptedUrl: string[];
 	text: string[];
+	creatorId:string;
+	userId:string;
 }
 
-const Section2: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => {
+const Section2: React.FC<FullComponentProps> = ({ decryptedUrl, text,creatorId,userId }) => {
 	const imgsets = decryptedUrl.slice(0, 3);
 	return (
 		<Box h="100%">
@@ -15,7 +17,7 @@ const Section2: React.FC<FullComponentProps> = ({ decryptedUrl, text }) => {
 			<Box w="100%" h="70vh" bg="gray.200">
 				<RandomImageSwitcher imageSet={imgsets} />
 			</Box>
-			<ProductInfo/>
+			<ProductInfo creatorId={creatorId} userId={userId}/>
 		</Box>
 	);
 };

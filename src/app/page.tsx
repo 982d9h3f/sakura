@@ -13,6 +13,7 @@ import LargeImage from "../../components/LargeImage";
 import Gallery from "../../components/Gallery";
 import Story from "../../components/Story";
 import OrderSection from "../../components/OrderSection";
+import Checkout from '../../components/Checkout';
 const images = Array.from({ length: 8 }, (_, i) => {
 	const imageIndex = i + 1;
 	return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/${imageIndex}.webp`;
@@ -74,7 +75,7 @@ const Home: React.FC = () => {
 					<Box bg="white" flex="1" />
 					<Box flex="1" />
 				</Flex>
-				<OrderSection />
+				<Checkout/>
 			</Box>
 			<Box py={6} textAlign="center" bg="pink.200">
 				<Text fontSize="sm">
@@ -86,3 +87,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+//		<OrderSection />
