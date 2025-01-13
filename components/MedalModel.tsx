@@ -71,12 +71,6 @@ const MedalViewer: React.FC<MedalViewerProps> = ({ width, height }) => {
 		const animate = () => {
 			requestAnimationFrame(animate);
 
-			if (window.innerWidth <= 768) {
-				renderer.render(scene, camera);
-				return;
-			}
-
-			// モデルがロードされていれば回転させる
 			if (model) {
 				const range = Math.PI / 45; // 振動範囲を定義
 				time += 0.01; // 時間変数を増加

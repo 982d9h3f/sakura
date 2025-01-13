@@ -109,19 +109,13 @@ const UserPage: React.FC = () => {
 							<Text fontSize="18px">
 								{text[1]}
 							</Text>
+							<MedalViewer width={350} height={350} />
 							<Box w={{ base: d * 2, md: d * 3 }} mr={{ base: 0, md: 8 }} my={5}>
 								<SimpleGrid
 									columns={{ base: 2, md: 4 }}
 									spacing={0}
 								>
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
+
 								</SimpleGrid>
 							</Box>
 							<Text fontSize="18px">
@@ -167,10 +161,7 @@ const UserPage: React.FC = () => {
 							</h2>
 							<AccordionPanel p={0}>
 								<Box my="50px" />
-								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+
 							</AccordionPanel>
 						</AccordionItem>
 					</Accordion>
@@ -181,4 +172,23 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
+
+
+/*
+
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+									<MedalViewer width={d} height={d} />
+
+
+																	<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
+
+*/
 
