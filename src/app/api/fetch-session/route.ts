@@ -1,8 +1,6 @@
 // src/app/api/fetch-session/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-
-// 環境変数検証
 if (!process.env.STRIPE_SECRET_KEY) {
 	throw new Error('Missing Stripe secret key in environment variables');
 }
