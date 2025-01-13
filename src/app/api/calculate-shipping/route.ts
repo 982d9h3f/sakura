@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { countries, countries2, countries3, countries4, countries5 } from '../../../../components/countries';
-
+import { v4 as uuidv4 } from 'uuid'; 
 const allCountries = [
 	...countries,
 	...countries2,
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 		if (!countryCode || countryCode.length !== 2) {
 			throw new Error('Invalid country name or unsupported country.');
 		}
-
+		const orderId = uuidv4();
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
 			line_items: [
@@ -99,6 +99,7 @@ export async function POST(request: NextRequest) {
 				creatorId,
 				userId,
 				quantity,
+				orderId,
 			},
 		});
 
