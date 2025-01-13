@@ -14,18 +14,18 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
-	useMediaQuery,
+	//useMediaQuery,
 } from '@chakra-ui/react';
 //import DragAndDrop from "../../../../components/DragAndDrop";
 import { fetchAndDecryptFiles } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
-import MedalViewer from '../../../../components/MedalModel';
+//import MedalViewer from '../../../../components/MedalModel';
 import SpinningBoxes from '../../../../components/SpinningBoxes';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
-	const [isMobile] = useMediaQuery('(max-width: 768px)');
+	//const [isMobile] = useMediaQuery('(max-width: 768px)');
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const [text, setText] = useState([]);
@@ -111,13 +111,9 @@ const UserPage: React.FC = () => {
 								{text[1]}
 							</Text>
 							<Box m={5}>
-								{isMobile ? (
-									<Box maxW="200px">
-										<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
-									</Box>
-								) : (
-									<MedalViewer height={350} width={350} />
-								)}
+								<Box maxW="200px">
+									<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
+								</Box>
 							</Box>
 							<Text fontSize="18px">
 								{text[2]}
