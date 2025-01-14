@@ -6,7 +6,6 @@ import {
 	Box,
 	Text,
 	VStack,
-	Heading,
 	useBreakpointValue,
 	Container,
 	Accordion,
