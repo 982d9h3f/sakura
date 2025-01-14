@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation'; // URL パラメータを取得
 import {
@@ -13,25 +12,24 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
-	//useMediaQuery,
 } from '@chakra-ui/react';
-//import DragAndDrop from "../../../../components/DragAndDrop";
 import { fetchAndDecryptFiles } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
-//import MedalViewer from '../../../../components/MedalModel';
 import SpinningBoxes from '../../../../components/SpinningBoxes';
+import StoryText from '../../../../components/StoryText';
+import CheckoutContent from '../../../../components/CheckoutContent';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
-	//const [isMobile] = useMediaQuery('(max-width: 768px)');
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
 	const [text, setText] = useState([]);
 	const [start, setStart] = useState(false);
 	const [visitorId, setVisitorId] = useState('');
 	const [inviterId, setInviterId] = useState('');
-	const [lang,setLang] = useState('');
+	const [lang, setLang] = useState('');
+	const [state, setState] = useState(0);
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -41,17 +39,18 @@ const UserPage: React.FC = () => {
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				const [inviterId, visitorId,lang] = id?.split('_') || [];
-				setInviterId(inviterId);
-				setVisitorId(visitorId);
-				setLang(lang);
-				const response = await axios.post('/api/checkIds', { inviterId, visitorId,lang });
+				const tmp = await axios.post('/api/checkTmp', { id });
 				const decryptedBlobs = await fetchAndDecryptFiles(fileNames);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
-				setText(response.data.text.split(','));
+				setInviterId(tmp.data.inviterId);
+				setVisitorId(tmp.data.visitorId);
+				setLang(tmp.data.language);
+				setText(tmp.data.text.split(','));
 				setStart(true);
+				setState(1);
 			} catch {
+				setState(2);
 			}
 		};
 		fetchImages();
@@ -75,7 +74,7 @@ const UserPage: React.FC = () => {
 		link.rel = 'stylesheet';
 		document.head.appendChild(link);
 		return () => {
-			document.head.removeChild(link); // ページから離れたときにフォントを解除
+			document.head.removeChild(link);
 		};
 	}, []);
 
@@ -83,103 +82,131 @@ const UserPage: React.FC = () => {
 	if (!d) return null;
 	return (
 		<Box fontFamily="'Zen Maru Gothic', sans-serif" fontSize="16px">
-			<SpinningBoxes keepAnimation={!start} />
-			<Container
-				maxW="800px"
-				borderRadius="lg"
-				p={{ base: 0, md: 4 }}
-				shadow="md"
-				bg="pink.100"
-				display="flex"
-				flexDirection="column"
-				justifyContent="center"
-				alignItems="center"
-				textAlign="center"
-			>
-				<Box w="100%">
-					<Text>
-						{lang=='jp'?'コラボレーション':'collaboration'}
-					</Text>
-					<Text as="h1" fontSize={headerFontSize} textAlign="center">
-						SAKURA
-					</Text>
-					<Text as="h1" fontSize={headerFontSize} textAlign="center">
-						✕
-					</Text>
-					<Box w="100%"><img src={decryptedUrls[0]} /></Box>
-					<VStack spacing="100px" align="center" mt="100px">
-						<Text fontSize="18px" textAlign="center">
-							{text[0]}
+			<SpinningBoxes keepAnimation={!start && state == 0} />
+			{state == 1 ?
+				<Container
+					maxW="800px"
+					borderRadius="lg"
+					p={{ base: 0, md: 4 }}
+					shadow="md"
+					bg="pink.100"
+					display="flex"
+					flexDirection="column"
+					justifyContent="center"
+					alignItems="center"
+					textAlign="center"
+				>
+					<Box w="100%">
+						<Text>
+							{lang == 'jp' ? 'コラボ企画！！' : 'Collaboration'}
 						</Text>
-						<Box
-							w="100%"
-							display="flex"
-							flexDirection="column"
-							alignItems="center"
-							textAlign="center"
-						>
-							<Text fontSize="18px">
-								{text[1]}
+						<Text as="h1" fontSize={headerFontSize} textAlign="center">
+							SAKURA
+						</Text>
+						<Text as="h1" fontSize={headerFontSize} textAlign="center">
+							✕
+						</Text>
+						<Box w="100%"><img src={decryptedUrls[0]} /></Box>
+						<VStack spacing="100px" align="center" mt="100px">
+							<Text fontSize="18px" textAlign="center" fontWeight="bold">
+								{text[0]}
 							</Text>
-							<Box m={5}>
-								<Box maxW="200px">
-									<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
-								</Box>
-							</Box>
-							<Text fontSize="18px">
-								{text[2]}
-							</Text>
-						</Box>
-
-						<Text fontSize="lg" textAlign="center">
-							{text[3]}
-						</Text>
-						<Text fontSize="lg" textAlign="center">
-							{text[4]}
-							<Box as="span" fontSize="2xl" color="pink.500">
-								{text[5]}
-							</Box>{' '}
-							{text[6]}
-						</Text>
-						<Text textAlign="center">{text[7]}</Text>
-						<Text fontSize="lg" textAlign="center">
-							<Box as="span" fontSize="2xl" color="pink.500">
-								{text[8]}
-							</Box>
-							{text[9]}
-						</Text>
-					</VStack>
-					<Accordion allowToggle my="50px" border="none" _focus={{ boxShadow: 'none' }}>
-						<AccordionItem border="none">
-							<h2>
-								<AccordionButton
-									bg="pink"
-									maxW="300px"
-									mx="auto" /* 水平方向の中央寄せ */
-									display="flex"
-									justifyContent="center" /* ボタン内のテキストとアイコンを中央揃え */
-									alignItems="center"
-									borderRadius="10px"
-									border="none" /* すべてのボーダーを削除 */
-									_focus={{ boxShadow: 'none' }} /* フォーカス時のボーダー影も削除 */
-								>
-									<Box flex="1" textAlign="center" color="black">
-										{lang=="jp"?"あける💖":"Open💖"}
+							<Box
+								w="100%"
+								display="flex"
+								flexDirection="column"
+								alignItems="center"
+								textAlign="center"
+							>
+								<Text fontSize="18px">
+									{text[1]}
+								</Text>
+								<Box m={5}>
+									<Box maxW="200px">
+										<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
 									</Box>
-									<AccordionIcon />
-								</AccordionButton>
-							</h2>
-							<AccordionPanel p={0}>
-								<Box my="50px" />
-								<FullComponent decryptedUrl={section1Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang}/>
-							</AccordionPanel>
-						</AccordionItem>
-					</Accordion>
-				</Box>
-			</Container>
+								</Box>
+								<Text fontSize="18px">
+									{text[2]}
+								</Text>
+							</Box>
+
+							<Text fontSize="lg" textAlign="center">
+								{text[3]}
+							</Text>
+							<Text fontSize="lg" textAlign="center">
+								{text[4]}
+								<Box as="span" fontSize="2xl" color="pink.500">
+									{text[5]}
+								</Box>{' '}
+								{text[6]}
+							</Text>
+							<Text textAlign="center">{text[7]}</Text>
+							<Text fontSize="lg" textAlign="center">
+								<Box as="span" fontSize="2xl" color="pink.500">
+									{text[8]}
+								</Box>
+								{text[9]}
+							</Text>
+						</VStack>
+						<Accordion allowToggle my="50px" border="none" _focus={{ boxShadow: 'none' }}>
+							<AccordionItem border="none">
+								<h2>
+									<AccordionButton
+										bg="pink"
+										maxW="300px"
+										mx="auto" /* 水平方向の中央寄せ */
+										display="flex"
+										justifyContent="center" /* ボタン内のテキストとアイコンを中央揃え */
+										alignItems="center"
+										borderRadius="10px"
+										border="none" /* すべてのボーダーを削除 */
+										_focus={{ boxShadow: 'none' }} /* フォーカス時のボーダー影も削除 */
+									>
+										<Box flex="1" textAlign="center" color="black">
+											{lang == "jp" ? "あける💖" : "Open💖"}
+										</Box>
+										<AccordionIcon />
+									</AccordionButton>
+								</h2>
+								<AccordionPanel p={0}>
+									<Box my="50px" />
+									<FullComponent decryptedUrl={section1Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+									<Section2 decryptedUrl={section2Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+									<Section2 decryptedUrl={section3Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+									<Section2 decryptedUrl={section4Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+								</AccordionPanel>
+							</AccordionItem>
+						</Accordion>
+					</Box>
+				</Container>
+				:
+				<Container
+					maxW="800px"
+					borderRadius="lg"
+					p={{ base: 0, md: 4 }}
+					shadow="md"
+					bg="pink.100"
+					display="flex"
+					flexDirection="column"
+					justifyContent="center"
+					alignItems="center"
+					textAlign="center"
+				>
+					<Box w="100%" p={3}>
+						<Text fontSize="25px" textAlign="center" my={5}>
+							SAKURA Medal Story
+						</Text>
+						<StoryText />
+						<Box m={5} w="100%" textAlign="center">
+							<Box maxW="200px"  mx="auto">
+								<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
+							</Box>
+						</Box>
+						<CheckoutContent/>
+					</Box>
+				</Container>
+			}
 		</Box>
 	);
 };
