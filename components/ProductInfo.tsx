@@ -9,7 +9,6 @@ interface ProductInfoProps {
 	lang: string;
 }
 const ProductInfo: React.FC<ProductInfoProps> = ({ creatorId, userId, text, lang }) => {
-	//const [isMobile] = useMediaQuery('(max-width: 768px)');
 
 	return (
 		<Box p={3}>

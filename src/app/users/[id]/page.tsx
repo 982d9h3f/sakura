@@ -70,10 +70,20 @@ const UserPage: React.FC = () => {
 	const section3Images = [decryptedUrls[5], decryptedUrls[6], decryptedUrls[7]];
 	const section4Images = [decryptedUrls[8], decryptedUrls[9], decryptedUrls[10]];
 
+	useEffect(() => {
+		const link = document.createElement('link');
+		link.href = 'https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap';
+		link.rel = 'stylesheet';
+		document.head.appendChild(link);
+		return () => {
+			document.head.removeChild(link); // ページから離れたときにフォントを解除
+		};
+	}, []);
+
 	const d = useBreakpointValue({ base: 180, md: 220 });
 	if (!d) return null;
 	return (
-		<Box >
+		<Box fontFamily="'Zen Maru Gothic', sans-serif" fontSize="16px">
 			<SpinningBoxes keepAnimation={!start} />
 			<Container
 				maxW="800px"
@@ -91,12 +101,12 @@ const UserPage: React.FC = () => {
 					<Text>
 						{lang=='jp'?'コラボレーション':'collaboration'}
 					</Text>
-					<Heading as="h1" fontSize={headerFontSize} textAlign="center">
+					<Text as="h1" fontSize={headerFontSize} textAlign="center">
 						SAKURA
-					</Heading>
-					<Heading as="h1" fontSize={headerFontSize} textAlign="center">
+					</Text>
+					<Text as="h1" fontSize={headerFontSize} textAlign="center">
 						✕
-					</Heading>
+					</Text>
 					<Box w="100%"><img src={decryptedUrls[0]} /></Box>
 					<VStack spacing="100px" align="center" mt="100px">
 						<Text fontSize="18px" textAlign="center">
@@ -127,14 +137,14 @@ const UserPage: React.FC = () => {
 						</Text>
 						<Text fontSize="lg" textAlign="center">
 							{text[4]}
-							<Box as="span" fontFamily="'Caveat', cursive" fontSize="2xl" color="pink.500">
+							<Box as="span" fontSize="2xl" color="pink.500">
 								{text[5]}
 							</Box>{' '}
 							{text[6]}
 						</Text>
 						<Text textAlign="center">{text[7]}</Text>
 						<Text fontSize="lg" textAlign="center">
-							<Box as="span" fontFamily="'Caveat', cursive" fontSize="2xl" color="pink.500">
+							<Box as="span" fontSize="2xl" color="pink.500">
 								{text[8]}
 							</Box>
 							{text[9]}
