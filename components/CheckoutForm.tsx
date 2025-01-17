@@ -3,11 +3,9 @@ import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { countries, countries2, countries3, countries4, countries5 } from './countries';
 import axios from 'axios';
 import Select from 'react-select';
-
+import { Colab, emptyColab } from '@/lib/types/Colab';
 interface CheckoutProps {
-	creatorId?: string;
-	userId?: string;
-	text?:string;
+	Colab: Colab;
 }
 
 interface CountryOption {
@@ -15,7 +13,7 @@ interface CountryOption {
 	label: string;
 }
 
-const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId,text }) => {
+const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 	const [loading, setLoading] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(null);
 
@@ -25,8 +23,8 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId,text }) => {
 			const response = await axios.post('/api/calculate-shipping', {
 				selectedCountry,
 				quantity: 1,
-				creatorId,
-				userId,
+				creatorId:Colab.inviterId,
+				userId:Colab.visitorId,
 			});
 			console.log('Server Response:', response.data);
 			if (response.status === 200 && response.data.url) {
@@ -43,7 +41,7 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId,text }) => {
 		setSelectedCountry(selectedOption);
 	};
 
-	const allCountries = [...countries,...countries2, ...countries3, ...countries4, ...countries5];
+	const allCountries = [...countries, ...countries2, ...countries3, ...countries4, ...countries5];
 	const countryOptions: CountryOption[] = allCountries.map((country) => ({
 		value: country.code,
 		label: country.name,
@@ -96,7 +94,10 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ creatorId, userId,text }) => {
 					onClick={handleCheckout}
 					disabled={loading || !selectedCountry}
 				>
-					{text?text:'Proceed to order'}
+					{Colab?.language == "jp"
+						? Colab?.textMedalJP?.split(',')[5] || ''
+						: Colab?.textMedalEN?.split(',')[5] || ''
+					}
 				</Button>
 			</Box>
 		</>

@@ -2,14 +2,12 @@ import React from 'react';
 import { Flex, Box, Text ,Grid } from '@chakra-ui/react';
 import RandomImageSwitcher from './RandomImageSwitcher';
 import ProductInfo from './ProductInfo';
+import { Colab, emptyColab } from '@/lib/types/Colab';
 interface FullComponentProps {
 	decryptedUrl: string[][];
-	text: string[];
-	creatorId:string;
-	userId:string;
-	lang:string;
+	Colab:Colab;
 }
-const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creatorId,userId,lang }) => {
+const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, Colab }) => {
 	return (
 		<Box w="100%" p={0}>
 			<Grid
@@ -26,7 +24,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creato
 							minH="2.5em"
 							mb={2}
 						>
-							<Text>{text[index]}</Text>
+							<Text>{Colab?.textJP?.split(',')[index]||''}</Text>
 						</Flex>
 
 						<Box
@@ -41,7 +39,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, text,creato
 					</Box>
 				))}
 			</Grid>
-			<ProductInfo creatorId={creatorId} userId={userId} text={text.slice(3, 9)} lang={lang}/>
+			<ProductInfo Colab={Colab}/>
 		</Box>
 	);
 };

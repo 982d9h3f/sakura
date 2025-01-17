@@ -42,19 +42,16 @@ export async function POST(req: Request) {
 				'#lang': language,
 			},
 		};
-
 		const cacheData = await dynamoDB.get(cacheParams).promise();
 		const text = cacheData.Item ? cacheData.Item[language] : null;
 
 		// テンポラリテーブルからデータを削除
-		const deleteParams = {
+		/*const deleteParams = {
 			TableName: `mySnap-tmp`,
 			Key: { id },
 		};
-
 		await dynamoDB.delete(deleteParams).promise(); // アイテムを削除
-
-		// 結果をレスポンス
+		*/
 		return NextResponse.json({
 			success: true,
 			inviterId,

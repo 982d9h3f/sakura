@@ -13,13 +13,14 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 } from '@chakra-ui/react';
-import { fetchAndDecryptFiles } from '../../../utils/crypto';
+import { fetchAndDecryptFiles, fetchAndDecryptFiles2 } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
 import SpinningBoxes from '../../../../components/SpinningBoxes';
 import StoryText from '../../../../components/StoryText';
 import CheckoutContent from '../../../../components/CheckoutContent';
+import { Colab, emptyColab } from '@/lib/types/Colab';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -30,6 +31,7 @@ const UserPage: React.FC = () => {
 	const [inviterId, setInviterId] = useState('');
 	const [lang, setLang] = useState('');
 	const [state, setState] = useState(0);
+	const [colab, setColab] = useState<Colab>(emptyColab);
 	const fileNames = [
 		'Header.webp', 'medal.png',
 		'010.webp', '011.webp', '012.webp',
@@ -40,7 +42,14 @@ const UserPage: React.FC = () => {
 		const fetchImages = async () => {
 			try {
 				const tmp = await axios.post('/api/checkTmp', { id });
-				const decryptedBlobs = await fetchAndDecryptFiles(fileNames);
+				const pageData = await axios.post('/api/getData', { id });
+				console.log('pageData', pageData.data.colab);
+				setColab(pageData.data.colab);
+				const combinePath = [
+					...pageData.data.colab.contentTmp.split(','),
+					...pageData.data.colab.content.split(','),
+				];
+				const decryptedBlobs = await fetchAndDecryptFiles2(combinePath);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
 				setInviterId(tmp.data.inviterId);
@@ -78,6 +87,7 @@ const UserPage: React.FC = () => {
 		};
 	}, []);
 
+
 	const d = useBreakpointValue({ base: 180, md: 220 });
 	if (!d) return null;
 	return (
@@ -109,7 +119,7 @@ const UserPage: React.FC = () => {
 						<Box w="100%"><img src={decryptedUrls[0]} /></Box>
 						<VStack spacing="100px" align="center" mt="100px">
 							<Text fontSize="18px" textAlign="center" fontWeight="bold">
-								{text[0]}
+								{colab?.textLpJP?.split(',')[0] || ''}
 							</Text>
 							<Box
 								w="100%"
@@ -119,7 +129,7 @@ const UserPage: React.FC = () => {
 								textAlign="center"
 							>
 								<Text fontSize="18px">
-									{text[1]}
+									{colab?.textLpJP?.split(',')[1] || ''}
 								</Text>
 								<Box m={5}>
 									<Box maxW="200px">
@@ -127,26 +137,26 @@ const UserPage: React.FC = () => {
 									</Box>
 								</Box>
 								<Text fontSize="18px">
-									{text[2]}
+									{colab?.textLpJP?.split(',')[2] || ''}
 								</Text>
 							</Box>
 
 							<Text fontSize="lg" textAlign="center">
-								{text[3]}
+								{colab?.textLpJP?.split(',')[3] || ''}
 							</Text>
 							<Text fontSize="lg" textAlign="center">
-								{text[4]}
+								{colab?.textLpJP?.split(',')[4] || ''}
 								<Box as="span" fontSize="2xl" color="pink.500">
-									{text[5]}
+									{colab?.textLpJP?.split(',')[5] || ''}
 								</Box>{' '}
-								{text[6]}
+								{colab?.textLpJP?.split(',')[6] || ''}
 							</Text>
 							<Text textAlign="center">{text[7]}</Text>
 							<Text fontSize="lg" textAlign="center">
 								<Box as="span" fontSize="2xl" color="pink.500">
-									{text[8]}
+									{colab?.textLpJP?.split(',')[8] || ''}
 								</Box>
-								{text[9]}
+								{colab?.textLpJP?.split(',')[9] || ''}
 							</Text>
 						</VStack>
 						<Accordion allowToggle my="50px" border="none" _focus={{ boxShadow: 'none' }}>
@@ -171,10 +181,10 @@ const UserPage: React.FC = () => {
 								</h2>
 								<AccordionPanel p={0}>
 									<Box my="50px" />
-									<FullComponent decryptedUrl={section1Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
-									<Section2 decryptedUrl={section2Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
-									<Section2 decryptedUrl={section3Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
-									<Section2 decryptedUrl={section4Images} text={text.slice(10, 19)} creatorId={inviterId} userId={visitorId} lang={lang} />
+									<FullComponent decryptedUrl={section1Images} Colab={colab}/>
+									<Section2 decryptedUrl={section2Images} text={colab.language=='jp'?colab.textJP.split(',')[0]:colab.textEN.split(',')[0]} Colab={colab} />
+									<Section2 decryptedUrl={section3Images} text={colab.language=='jp'?colab.textJP.split(',')[1]:colab.textEN.split(',')[1]} Colab={colab} />
+									<Section2 decryptedUrl={section4Images} text={colab.language=='jp'?colab.textJP.split(',')[2]:colab.textEN.split(',')[2]} Colab={colab}/>
 								</AccordionPanel>
 							</AccordionItem>
 						</Accordion>
@@ -199,11 +209,11 @@ const UserPage: React.FC = () => {
 						</Text>
 						<StoryText />
 						<Box m={5} w="100%" textAlign="center">
-							<Box maxW="200px"  mx="auto">
+							<Box maxW="200px" mx="auto">
 								<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
 							</Box>
 						</Box>
-						<CheckoutContent/>
+						<CheckoutContent />
 					</Box>
 				</Container>
 			}
