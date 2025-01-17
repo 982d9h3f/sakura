@@ -144,8 +144,6 @@ export async function fetchAndDecryptFiles(fileNames: string[]): Promise<Blob[]>
 
 export async function fetchAndDecryptFiles2(paths: string[]): Promise<Blob[]> {
 	// 固定のベースURL
-	const baseUrl = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/encrypto`;
-	console.log('paths',paths);
 	try {
 		// ファイルごとにfetchとdecrypt処理を並列実行
 		const decryptedBlobs = await Promise.all(

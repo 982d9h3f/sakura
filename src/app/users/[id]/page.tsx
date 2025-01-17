@@ -13,7 +13,7 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 } from '@chakra-ui/react';
-import { fetchAndDecryptFiles, fetchAndDecryptFiles2 } from '../../../utils/crypto';
+import { fetchAndDecryptFiles2 } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
 import Section2 from '../../../../components/Section2';
 import axios from 'axios';
@@ -25,25 +25,13 @@ const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 	const [decryptedUrls, setDecryptedUrls] = useState<string[]>([]);
-	const [text, setText] = useState([]);
 	const [start, setStart] = useState(false);
-	const [visitorId, setVisitorId] = useState('');
-	const [inviterId, setInviterId] = useState('');
-	const [lang, setLang] = useState('');
 	const [state, setState] = useState(0);
 	const [colab, setColab] = useState<Colab>(emptyColab);
-	const fileNames = [
-		'Header.webp', 'medal.png',
-		'010.webp', '011.webp', '012.webp',
-		'023.webp', '021.webp', '022.webp',
-		'030.webp', '031.webp', '032.webp',
-	];
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				const tmp = await axios.post('/api/checkTmp', { id });
 				const pageData = await axios.post('/api/getData', { id });
-				console.log('pageData', pageData.data.colab);
 				setColab(pageData.data.colab);
 				const combinePath = [
 					...pageData.data.colab.contentTmp.split(','),
@@ -52,11 +40,6 @@ const UserPage: React.FC = () => {
 				const decryptedBlobs = await fetchAndDecryptFiles2(combinePath);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
-				console.log('urls',urls);
-				setInviterId(tmp.data.inviterId);
-				setVisitorId(tmp.data.visitorId);
-				setLang(tmp.data.language);
-				setText(tmp.data.text.split(','));
 				setStart(true);
 				setState(1);
 			} catch {
@@ -109,7 +92,7 @@ const UserPage: React.FC = () => {
 				>
 					<Box w="100%">
 						<Text>
-							{lang == 'jp' ? 'コラボ企画！！' : 'Collaboration'}
+							{colab?.language == "jp" ? 'コラボ企画！！' : 'Collaboration'}
 						</Text>
 						<Text as="h1" fontSize={headerFontSize} textAlign="center">
 							SAKURA
@@ -166,16 +149,16 @@ const UserPage: React.FC = () => {
 									<AccordionButton
 										bg="pink"
 										maxW="300px"
-										mx="auto" /* 水平方向の中央寄せ */
+										mx="auto"
 										display="flex"
-										justifyContent="center" /* ボタン内のテキストとアイコンを中央揃え */
+										justifyContent="center"
 										alignItems="center"
 										borderRadius="10px"
-										border="none" /* すべてのボーダーを削除 */
-										_focus={{ boxShadow: 'none' }} /* フォーカス時のボーダー影も削除 */
+										border="none"
+										_focus={{ boxShadow: 'none' }}
 									>
 										<Box flex="1" textAlign="center" color="black">
-											{lang == "jp" ? "あける💖" : "Open💖"}
+											{colab?.language == "jp" ? "あける💖" : "Open💖"}
 										</Box>
 										<AccordionIcon />
 									</AccordionButton>

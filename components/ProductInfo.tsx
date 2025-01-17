@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Box, Text } from '@chakra-ui/react';
 //import MedalViewer from './MedalModel';
 import CheckoutForm from './CheckoutForm';
-import { Colab, emptyColab } from '@/lib/types/Colab';
+import { Colab } from '@/lib/types/Colab';
 interface ProductInfoProps {
 	Colab: Colab;
 }

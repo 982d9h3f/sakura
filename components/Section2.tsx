@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import RandomImageSwitcher from './RandomImageSwitcher';
 import ProductInfo from './ProductInfo';
-import { Colab, emptyColab } from '@/lib/types/Colab';
+import { Colab } from '@/lib/types/Colab';
 interface FullComponentProps {
 	decryptedUrl: string[];
 	text: string;
