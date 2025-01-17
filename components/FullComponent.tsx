@@ -24,7 +24,7 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, Colab }) =>
 							minH="2.5em"
 							mb={2}
 						>
-							<Text>{Colab?.textJP?.split(',')[index]||''}</Text>
+							<Text>{Colab?.language=="jp"?Colab?.textJP?.split(',')[index]||'':Colab?.textEN?.split(',')[index]||''}</Text>
 						</Flex>
 
 						<Box

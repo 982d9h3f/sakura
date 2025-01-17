@@ -52,6 +52,7 @@ const UserPage: React.FC = () => {
 				const decryptedBlobs = await fetchAndDecryptFiles2(combinePath);
 				const urls = decryptedBlobs.map((blob) => URL.createObjectURL(blob));
 				setDecryptedUrls(urls);
+				console.log('urls',urls);
 				setInviterId(tmp.data.inviterId);
 				setVisitorId(tmp.data.visitorId);
 				setLang(tmp.data.language);
@@ -119,7 +120,7 @@ const UserPage: React.FC = () => {
 						<Box w="100%"><img src={decryptedUrls[0]} /></Box>
 						<VStack spacing="100px" align="center" mt="100px">
 							<Text fontSize="18px" textAlign="center" fontWeight="bold">
-								{colab?.textLpJP?.split(',')[0] || ''}
+								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[0] || '' : colab?.textLpEN?.split(',')[0] || ''}
 							</Text>
 							<Box
 								w="100%"
@@ -129,7 +130,7 @@ const UserPage: React.FC = () => {
 								textAlign="center"
 							>
 								<Text fontSize="18px">
-									{colab?.textLpJP?.split(',')[1] || ''}
+									{colab?.language == "jp" ? colab?.textLpJP?.split(',')[1] || '' : colab?.textLpEN?.split(',')[1] || ''}
 								</Text>
 								<Box m={5}>
 									<Box maxW="200px">
@@ -137,26 +138,26 @@ const UserPage: React.FC = () => {
 									</Box>
 								</Box>
 								<Text fontSize="18px">
-									{colab?.textLpJP?.split(',')[2] || ''}
+									{colab?.language == "jp" ? colab?.textLpJP?.split(',')[2] || '' : colab?.textLpEN?.split(',')[2] || ''}
 								</Text>
 							</Box>
 
 							<Text fontSize="lg" textAlign="center">
-								{colab?.textLpJP?.split(',')[3] || ''}
+								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[3] || '' : colab?.textLpEN?.split(',')[3] || ''}
 							</Text>
 							<Text fontSize="lg" textAlign="center">
-								{colab?.textLpJP?.split(',')[4] || ''}
+								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[4] || '' : colab?.textLpEN?.split(',')[4] || ''}
 								<Box as="span" fontSize="2xl" color="pink.500">
-									{colab?.textLpJP?.split(',')[5] || ''}
+									{colab?.language == "jp" ? colab?.textLpJP?.split(',')[5] || '' : colab?.textLpEN?.split(',')[5] || ''}
 								</Box>{' '}
-								{colab?.textLpJP?.split(',')[6] || ''}
+								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[6] || '' : colab?.textLpEN?.split(',')[6] || ''}
 							</Text>
-							<Text textAlign="center">{text[7]}</Text>
+							<Text textAlign="center">{colab?.language == "jp" ? colab?.textLpJP?.split(',')[7] || '' : colab?.textLpEN?.split(',')[7] || ''}</Text>
 							<Text fontSize="lg" textAlign="center">
 								<Box as="span" fontSize="2xl" color="pink.500">
-									{colab?.textLpJP?.split(',')[8] || ''}
+									{colab?.language == "jp" ? colab?.textLpJP?.split(',')[8] || '' : colab?.textLpEN?.split(',')[8] || ''}
 								</Box>
-								{colab?.textLpJP?.split(',')[9] || ''}
+								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[9] || '' : colab?.textLpEN?.split(',')[9] || ''}
 							</Text>
 						</VStack>
 						<Accordion allowToggle my="50px" border="none" _focus={{ boxShadow: 'none' }}>
@@ -181,10 +182,10 @@ const UserPage: React.FC = () => {
 								</h2>
 								<AccordionPanel p={0}>
 									<Box my="50px" />
-									<FullComponent decryptedUrl={section1Images} Colab={colab}/>
-									<Section2 decryptedUrl={section2Images} text={colab.language=='jp'?colab.textJP.split(',')[0]:colab.textEN.split(',')[0]} Colab={colab} />
-									<Section2 decryptedUrl={section3Images} text={colab.language=='jp'?colab.textJP.split(',')[1]:colab.textEN.split(',')[1]} Colab={colab} />
-									<Section2 decryptedUrl={section4Images} text={colab.language=='jp'?colab.textJP.split(',')[2]:colab.textEN.split(',')[2]} Colab={colab}/>
+									<FullComponent decryptedUrl={section1Images} Colab={colab} />
+									<Section2 decryptedUrl={section2Images} text={colab.language == 'jp' ? colab.textJP.split(',')[0] : colab.textEN.split(',')[0]} Colab={colab} />
+									<Section2 decryptedUrl={section3Images} text={colab.language == 'jp' ? colab.textJP.split(',')[1] : colab.textEN.split(',')[1]} Colab={colab} />
+									<Section2 decryptedUrl={section4Images} text={colab.language == 'jp' ? colab.textJP.split(',')[2] : colab.textEN.split(',')[2]} Colab={colab} />
 								</AccordionPanel>
 							</AccordionItem>
 						</Accordion>

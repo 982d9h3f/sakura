@@ -46,11 +46,10 @@ export async function POST(req: Request) {
 		};
 
 		// テンポラリテーブル削除
-		/*
 		const deleteParams = {
 			TableName: `mySnap-tmp`,
 			Key: { id },
-		};*/
+		};
 
 		// mySnap-sakura から default と inviterId を取得
 		const sakuraTableName = `mySnap-sakura`;
@@ -63,10 +62,10 @@ export async function POST(req: Request) {
 		};
 
 		// 並列で非同期処理を実行
-		//const [cacheData, _, sakuraData] = await Promise.all([
-		const [cacheData, sakuraData] = await Promise.all([
+		const [cacheData, _, sakuraData] = await Promise.all([
+		//const [cacheData, sakuraData] = await Promise.all([
 			dynamoDB.get(cacheParams).promise(), // キャッシュテーブル取得
-			//dynamoDB.delete(deleteParams).promise(), // テンポラリテーブル削除
+			dynamoDB.delete(deleteParams).promise(), // テンポラリテーブル削除
 			dynamoDB.batchGet(sakuraBatchParams).promise(), // mySnap-sakura データ取得
 		]);
 
