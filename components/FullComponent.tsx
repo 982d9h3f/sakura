@@ -43,7 +43,4 @@ const FullComponent: React.FC<FullComponentProps> = ({ decryptedUrl, Colab }) =>
 		</Box>
 	);
 };
-
 export default FullComponent;
-
-//	<ProductInfo creatorId={creatorId} userId={userId

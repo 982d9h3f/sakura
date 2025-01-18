@@ -32,7 +32,7 @@ const CheckoutContent: React.FC<CheckoutProps> = ({ }) => {
 					{`彼らの旅はまだ始まったばかりだ。アップルの初期のクリエイションが今日どのような意味を持つのかを思い出させてくれる。`}
 				</Text>
 			</Box>
-			<Box textAlign="center" mb={3}>
+			<Box textAlign="center" mb={8}>
 				<Text fontSize="2xl" color="gray.800" mb={2}>
 					Sakura Medal
 				</Text>
@@ -43,7 +43,7 @@ const CheckoutContent: React.FC<CheckoutProps> = ({ }) => {
 					Stock: 100 pieces
 				</Text>
 			</Box>
-			<CheckoutForm />
+			<Box mb={5}><CheckoutForm /></Box>
 		</>);
 };
 

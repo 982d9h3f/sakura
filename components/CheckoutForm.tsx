@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
-import { Box, Flex, Text, Button } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	Text,
+	Button,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalBody,
+	ModalFooter,
+	ModalCloseButton,
+	Checkbox,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { countries, countries2, countries3, countries4, countries5 } from './countries';
 import axios from 'axios';
 import Select from 'react-select';
 import { Colab } from '@/lib/types/Colab';
+
 interface CheckoutProps {
 	Colab?: Colab;
 }
@@ -16,8 +30,11 @@ interface CountryOption {
 const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 	const [loading, setLoading] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(null);
+	const [agreed, setAgreed] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const handleCheckout = async () => {
+		if (!selectedCountry || !agreed) return;
 		setLoading(true);
 		try {
 			const response = await axios.post('/api/calculate-shipping', {
@@ -50,49 +67,12 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 	return (
 		<>
 			<Box w="100%" display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-				<Flex
-					w="100%"
-					direction="row"
-					align="center"
-					flex="1"
-					mb={3}
-					justify="center"
-				>
-					<Text
-						fontSize="md"
-						color="gray.800"
-						mr={4}
-						whiteSpace="nowrap"
-						lineHeight="1.5"
-					>
-						Select Your Country:
-					</Text>
-					<Box flex="1" maxWidth="350px">
-						<Select
-							instanceId="checkout-country-select"
-							options={countryOptions}
-							placeholder=""
-							value={selectedCountry}
-							onChange={handleCountryChange}
-							isSearchable
-							styles={{
-								control: (base) => ({
-									...base,
-									borderColor: '#CBD5E0',
-									boxShadow: 'none',
-									height: '40px',
-									'&:hover': { borderColor: '#A0AEC0' },
-								}),
-							}}
-						/>
-					</Box>
-				</Flex>
 				<Button
 					colorScheme="pink"
 					size="lg"
 					w="100%"
-					onClick={handleCheckout}
-					disabled={loading || !selectedCountry}
+					onClick={onOpen}
+					disabled={loading}
 				>
 					{Colab
 						? Colab.language === "jp"
@@ -101,6 +81,59 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 						: 'Proceed to order'}
 				</Button>
 			</Box>
+
+			{/* Modal for region selection and agreement */}
+			<Modal isOpen={isOpen} onClose={onClose} isCentered>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalCloseButton />
+					<ModalBody>
+						<Flex direction="column" gap={4} p={3}>
+							<Text fontSize="16px" fontWeight="bold" mt={1} color="gray.600">
+								Select Your Country:
+							</Text>
+							<Box>
+								<Select
+									instanceId="checkout-country-select"
+									options={countryOptions}
+									placeholder="Select your country"
+									value={selectedCountry}
+									onChange={handleCountryChange}
+									isSearchable
+									styles={{
+										control: (base) => ({
+											...base,
+											borderColor: '#CBD5E0',
+											boxShadow: 'none',
+											height: '40px',
+											'&:hover': { borderColor: '#A0AEC0' },
+										}),
+									}}
+								/>
+							</Box>
+							<Checkbox
+								isChecked={agreed}
+								onChange={(e) => setAgreed(e.target.checked)}
+								colorScheme="pink"
+							>
+								<Text as="span" textDecoration="underline" color="gray.600">
+									I agree to the terms and conditions
+								</Text>
+							</Checkbox>
+						</Flex>
+					</ModalBody>
+					<ModalFooter>
+						<Button
+							colorScheme="pink"
+							mr={3}
+							onClick={handleCheckout}
+							isDisabled={!selectedCountry || !agreed || loading}
+						>
+							Confirm and Proceed
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</>
 	);
 };

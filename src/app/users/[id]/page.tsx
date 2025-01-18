@@ -12,6 +12,7 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
+	Button,
 } from '@chakra-ui/react';
 import { fetchAndDecryptFiles2 } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
@@ -21,6 +22,7 @@ import SpinningBoxes from '../../../../components/SpinningBoxes';
 import StoryText from '../../../../components/StoryText';
 import CheckoutContent from '../../../../components/CheckoutContent';
 import { Colab, emptyColab } from '@/lib/types/Colab';
+import Link from 'next/link';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -178,7 +180,7 @@ const UserPage: React.FC = () => {
 				<Container
 					maxW="800px"
 					borderRadius="lg"
-					p={{ base: 0, md: 4 }}
+					p={{ base: 0, md: 8 }}
 					shadow="md"
 					bg="pink.100"
 					display="flex"
@@ -188,6 +190,13 @@ const UserPage: React.FC = () => {
 					textAlign="center"
 				>
 					<Box w="100%" p={3}>
+						<Box mt={0} textAlign="center">
+							<Link href="/" passHref>
+								<Button colorScheme="pink" size="md">
+									To the desktop site
+								</Button>
+							</Link>
+						</Box>
 						<Text fontSize="25px" textAlign="center" my={5}>
 							SAKURA Medal Story
 						</Text>
@@ -206,23 +215,3 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
-
-
-/*
-
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-									<MedalViewer width={d} height={d} />
-
-
-																	<FullComponent decryptedUrl={section1Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section2Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section3Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-								<Section2 decryptedUrl={section4Images} text={text.slice(10, 13)} creatorId={inviterId} userId={visitorId} />
-
-*/
-

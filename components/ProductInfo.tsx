@@ -9,7 +9,7 @@ interface ProductInfoProps {
 const ProductInfo: React.FC<ProductInfoProps> = ({Colab }) => {
 	return (
 		<Box p={3}>
-			<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center" my={5}>
+			<Flex w="100%" h="300px" display="flex" justifyContent="center" alignItems="center">
 				<Box w="100%" maxW="150px" mr="5px">
 					<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
 				</Box>
@@ -53,43 +53,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({Colab }) => {
 					</Box>
 				</Box>
 			</Flex>
-			<Box mb={5}>
+			<Box mb={10}>
 				<CheckoutForm Colab={Colab}/>
 			</Box>
 		</Box>
 	);
 };
-
 export default ProductInfo;
-/*
-
-						<Text>
-							{`詳細は`}
-							<Text as="a" href="/terms" color="blue.500" textDecoration="underline">
-								利用規約
-							</Text>
-							{`をご覧ください。`}
-						</Text>
-
-
-			<Box w="100%" maxW="200px">
-				{isMobile ? (
-					<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
-				) : (
-					<MedalViewer height={180} width={180} />
-				)}
-			</Box>
-*/
-
-/*
-		<Button
-			colorScheme="pink"
-			size="lg"
-			w="100%"
-			onClick={() => alert('Proceed to Order')}
-			mb="80px"
-		>
-			会員コインをゲットする
-		</Button>
-
-*/
