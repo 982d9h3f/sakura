@@ -85,7 +85,7 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 			{/* Modal for region selection and agreement */}
 			<Modal isOpen={isOpen} onClose={onClose} isCentered>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent mt="10vh">
 					<ModalCloseButton />
 					<ModalBody>
 						<Flex direction="column" gap={4} p={3}>
