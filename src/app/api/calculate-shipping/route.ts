@@ -21,9 +21,8 @@ const getCountryCode = (countryName: string): string | undefined => {
 	return country?.code; // ここがundefinedでないことを確認
 };
 
-
 // Define shipping costs for each group in USD
-const exchangeRateJPYToUSD = 120;
+const exchangeRateJPYToUSD = 150;
 const shippingRates: { [key: string]: number } = {
 	group1: parseFloat((210 / exchangeRateJPYToUSD).toFixed(2)), // 350円 → 約2.92 USD
 	group2: parseFloat((380 / exchangeRateJPYToUSD).toFixed(2)), // 380円 → 約3.17 USD
@@ -31,6 +30,8 @@ const shippingRates: { [key: string]: number } = {
 	group4: parseFloat((830 / exchangeRateJPYToUSD).toFixed(2)), // 830円 → 約6.92 USD
 	group5: parseFloat((550 / exchangeRateJPYToUSD).toFixed(2)), // 550円 → 約4.58 USD
 };
+//書留費用
+const registeredMailFee = parseFloat((460 / exchangeRateJPYToUSD).toFixed(2)); 
 
 // Function to determine the shipping cost based on the country name
 const getShippingCost = (countryName: string): number => {
@@ -48,13 +49,21 @@ const getShippingCost = (countryName: string): number => {
 	throw new Error('Invalid country code or unsupported country.');
 };
 
+const getTotalShippingCost = (countryName: string, isRegistered: boolean): number => {
+    let shippingCost = getShippingCost(countryName);
+    if (isRegistered) {
+        shippingCost += registeredMailFee;
+    }
+    return shippingCost;
+};
+
 // Export a named POST handler
 export async function POST(request: NextRequest) {
 	try {
 		const { selectedCountry, quantity, creatorId, userId, } = await request.json();
 		console.log('Request Data:', { selectedCountry, quantity });
 
-		const shippingCost = getShippingCost(selectedCountry.label);
+		const shippingCost = getTotalShippingCost(selectedCountry.label, true);
 		console.log('Shipping Cost:', shippingCost);
 
 		const itemPriceUSD = 33;
@@ -87,7 +96,7 @@ export async function POST(request: NextRequest) {
 					shipping_rate_data: {
 						type: 'fixed_amount',
 						fixed_amount: { amount: Math.round(shippingCost * 100), currency: 'usd' },
-						display_name: `Shipping to ${selectedCountry.label}`,
+						display_name: `Shipping to ${selectedCountry.label}(Registered)`,
 						delivery_estimate: { minimum: { unit: 'business_day', value: 5 }, maximum: { unit: 'business_day', value: 10 } },
 					},
 				},
