@@ -2,28 +2,25 @@ export const countries = [
 	{ code: 'JP', name: 'Japan' },
 ];
 export const countries2 = [
-    { code: 'IN', name: 'India' },
     { code: 'HK', name: 'Hong Kong' },
 ];
 export const countries3 = [
-    { code: 'AU', name: 'Australia' }, //未成年者NG
-    { code: 'NZ', name: 'New Zealand' }, //未成年者NG
-    { code: 'CA', name: 'Canada' }, //未成年者NG
-    { code: 'MX', name: 'Mexico' }, //未成年者NG
-    { code: 'IE', name: 'Ireland' }, //未成年者NG
+    { code: 'AU', name: 'Australia' },
+    { code: 'NZ', name: 'New Zealand' },
+    { code: 'CA', name: 'Canada' }, 
+    { code: 'MX', name: 'Mexico' }, 
     { code: 'IT', name: 'Italy' },
     { code: 'GB', name: 'United Kingdom' },
     { code: 'EE', name: 'Estonia' },
     { code: 'AT', name: 'Austria' },
     { code: 'NL', name: 'Netherlands' },
-    { code: 'GR', name: 'Greece' }, //無修正
-    { code: 'CH', name: 'Switzerland' },
+    { code: 'GR', name: 'Greece' }, 
     { code: 'SE', name: 'Sweden' },
     { code: 'ES', name: 'Spain' },
     { code: 'SI', name: 'Slovenia' },
     { code: 'CZ', name: 'Czechia' },
     { code: 'DK', name: 'Denmark' },
-    { code: 'DE', name: 'Germany' }, //無修正
+    { code: 'DE', name: 'Germany' },
     { code: 'NO', name: 'Norway' },
     { code: 'HU', name: 'Hungary' },
     { code: 'FI', name: 'Finland' },
@@ -38,10 +35,10 @@ export const countries3 = [
     { code: 'RO', name: 'Romania' },
 ];
 export const countries4 = [
-    { code: 'US', name: 'United States' }, //未成年
+    { code: 'US', name: 'United States' },
 ];
 export const countries5 = [
-    { code: 'BR', name: 'Brazil' }, //未成年
+    { code: 'BR', name: 'Brazil' },
     { code: 'ZA', name: 'South Africa' },
 ];
 
@@ -102,6 +99,113 @@ export const stripeSupportedCountries = [
   
 
 /*
+
+
+export const countries = [
+	{ code: 'JP', name: 'Japan' },
+];
+export const countries2 = [
+   // { code: 'IN', name: 'India' }, 貴金属NG
+    { code: 'HK', name: 'Hong Kong' },
+];
+export const countries3 = [
+    { code: 'AU', name: 'Australia' },
+    { code: 'NZ', name: 'New Zealand' },
+    { code: 'CA', name: 'Canada' }, 
+    { code: 'MX', name: 'Mexico' }, 
+
+    //{ code: 'IE', name: 'Ireland' }, 貴金属▲
+    { code: 'IT', name: 'Italy' },
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'EE', name: 'Estonia' },
+    { code: 'AT', name: 'Austria' },
+
+    { code: 'NL', name: 'Netherlands' },
+    { code: 'GR', name: 'Greece' }, 
+    //{ code: 'CH', name: 'Switzerland' },貴金属▲
+    { code: 'SE', name: 'Sweden' },
+    { code: 'ES', name: 'Spain' },
+
+    { code: 'SI', name: 'Slovenia' },
+    { code: 'CZ', name: 'Czechia' },
+    { code: 'DK', name: 'Denmark' },
+    { code: 'DE', name: 'Germany' },
+
+    { code: 'NO', name: 'Norway' },
+    { code: 'HU', name: 'Hungary' },
+    { code: 'FI', name: 'Finland' },
+    { code: 'FR', name: 'France' },
+
+    { code: 'BG', name: 'Bulgaria' },
+    { code: 'BE', name: 'Belgium' },
+	{ code: 'PL', name: 'Poland' },
+    { code: 'PT', name: 'Portugal' },
+
+    { code: 'MT', name: 'Malta' },
+    { code: 'LV', name: 'Latvia' },
+    { code: 'LT', name: 'Lithuania' },
+    { code: 'RO', name: 'Romania' },
+];
+export const countries4 = [
+    { code: 'US', name: 'United States' },
+];
+export const countries5 = [
+    { code: 'BR', name: 'Brazil' },
+    { code: 'ZA', name: 'South Africa' },
+];
+
+
+
+export const countries = [
+	{ code: 'JP', name: 'Japan' },
+];
+export const countries2 = [
+    { code: 'IN', name: 'India' },
+    { code: 'HK', name: 'Hong Kong' },
+];
+export const countries3 = [
+    { code: 'AU', name: 'Australia' }, //未成年者NG
+    { code: 'NZ', name: 'New Zealand' }, //未成年者NG
+    { code: 'CA', name: 'Canada' }, //未成年者NG
+    { code: 'MX', name: 'Mexico' }, //未成年者NG
+    { code: 'IE', name: 'Ireland' }, //未成年者NG
+    { code: 'IT', name: 'Italy' },
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'EE', name: 'Estonia' },
+    { code: 'AT', name: 'Austria' },
+    { code: 'NL', name: 'Netherlands' },
+    { code: 'GR', name: 'Greece' }, //無修正
+    { code: 'CH', name: 'Switzerland' },
+    { code: 'SE', name: 'Sweden' },
+    { code: 'ES', name: 'Spain' },
+    { code: 'SI', name: 'Slovenia' },
+    { code: 'CZ', name: 'Czechia' },
+    { code: 'DK', name: 'Denmark' },
+    { code: 'DE', name: 'Germany' }, //無修正
+    { code: 'NO', name: 'Norway' },
+    { code: 'HU', name: 'Hungary' },
+    { code: 'FI', name: 'Finland' },
+    { code: 'FR', name: 'France' },
+    { code: 'BG', name: 'Bulgaria' },
+    { code: 'BE', name: 'Belgium' },
+	{ code: 'PL', name: 'Poland' },
+    { code: 'PT', name: 'Portugal' },
+    { code: 'MT', name: 'Malta' },
+    { code: 'LV', name: 'Latvia' },
+    { code: 'LT', name: 'Lithuania' },
+    { code: 'RO', name: 'Romania' },
+];
+export const countries4 = [
+    { code: 'US', name: 'United States' }, //未成年
+];
+export const countries5 = [
+    { code: 'BR', name: 'Brazil' }, //未成年
+    { code: 'ZA', name: 'South Africa' },
+];
+
+
+
+
 
 日本郵便が受け付ける国
 export const countries = [
