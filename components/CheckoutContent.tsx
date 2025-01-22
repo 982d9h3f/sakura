@@ -1,49 +1,37 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import CheckoutForm from './CheckoutForm';
+import StyledText from './StyledText';
 interface CheckoutProps {
 	creatorId?: string;
 	userId?: string;
 }
 
 const CheckoutContent: React.FC<CheckoutProps> = ({ }) => {
-
-	const EN = {
-		fontSize: "17px",
-		color: "gray.600",
-		textShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-	};
-
-	const JP = {
-		fontSize: "16px",
-		color: "gray.600",
-		textShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-		mt: "8px",
-		mb: "16px",
-	};
-
 	return (
 		<>
 			<Box textAlign="center" mb={8}>
-				<Text {...EN}>
-					{`Their journey has only just begun. It reminds us of what Apple's early
-									creations mean today.`}
-				</Text>
-				<Text {...JP}>
-					{`彼らの旅はまだ始まったばかりだ。アップルの初期のクリエイションが今日どのような意味を持つのかを思い出させてくれる。`}
-				</Text>
-			</Box>
-			<Box textAlign="center" mb={8}>
-				<Text fontSize="2xl" color="gray.800" mb={2}>
+				<StyledText lang="en" fontSize="2xl" color="gray.800" mb={2}>
 					Sakura Medal
-				</Text>
-				<Text fontSize="lg" color="gray.600" mb={2}>
+				</StyledText>
+				<Box my={2}>
+					<StyledText lang="en">
+						Made in Japan
+					</StyledText>
+					<StyledText lang="en">
+						20mm×20mm×1.5mm, Weight:4.7g
+					</StyledText>
+					<StyledText lang="en">
+						With an engraved 99.9% Silver certification
+					</StyledText>
+				</Box>
+				<StyledText lang="en" fontSize="18px">
 					Price: $33.00
-				</Text>
-				<Text fontSize="lg" color="gray.600" mb={2}>
+				</StyledText>
+				<StyledText lang="en">
 					Stock: 100 pieces
-				</Text>
+				</StyledText>
+				<Box my={5} maxW="300px" textAlign="center" mx="auto"><CheckoutForm /></Box>
 			</Box>
-			<Box mb={5}><CheckoutForm /></Box>
 		</>);
 };
 

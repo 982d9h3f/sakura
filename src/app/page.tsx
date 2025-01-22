@@ -1,10 +1,9 @@
 "use client";
-// 参考サイト https://fillinglife.co/en/
+
 import React from "react";
 import {
 	Box,
 	Flex,
-	Text,
 	Image,
 } from "@chakra-ui/react";
 import MainVisual from "../../components/MainVisual";
@@ -18,6 +17,10 @@ const images = Array.from({ length: 8 }, (_, i) => {
 	return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/${imageIndex}.webp`;
 }).filter(Boolean);
 import MedalViewer from '../../components/MedalModel';
+import InfoModal from '../../components/InfoModal';
+import StyledText from "components/StyledText";
+import Terms from "components/Terms";
+import Privacy from "components/Privacy";
 const Home: React.FC = () => {
 	return (
 		<>
@@ -74,16 +77,42 @@ const Home: React.FC = () => {
 					<Box bg="white" flex="1" />
 					<Box flex="1" />
 				</Flex>
-				<Checkout/>
+				<Box
+					textAlign="center"
+					h="120vh"
+					display="flex"
+					flexDirection="column"
+					alignItems="center"
+					justifyContent="center"
+					bg="rgba(0,0,0,0.5)"
+				>
+					<StyledText lang="en" color="white">
+						{`Their journey has only just begun. It reminds us of what Apple's early creations mean today.`}
+					</StyledText>
+					<Box my={1} />
+					<StyledText lang="jp" color="white">
+						{`彼らの旅はまだ始まったばかりだ。アップルの初期のクリエイションが今日どのような意味を持つのかを思い出させてくれる。`}
+					</StyledText>
+				</Box>
 			</Box>
-			<Box py={6} textAlign="center" bg="pink.200">
-				<Text fontSize="sm">
+			<Checkout/>
+			<Flex
+				py={6}
+				px={10}
+				textAlign="end"
+				bg="pink.200"
+				align="center"
+				justify="flex-end"
+				gap={4}
+			>
+				<StyledText lang="en">
 					&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.
-				</Text>
-			</Box>
+				</StyledText>
+				<Privacy/>
+				<Terms/>
+				<InfoModal />
+			</Flex>
 		</>
 	);
 };
-
 export default Home;
-//		<OrderSection />
