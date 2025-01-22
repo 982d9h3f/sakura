@@ -5,7 +5,7 @@ interface ImageGalleryProps {
 	images?: string[];
 }
 const images = [
-	"/1.jpg",
+	"/1.webp",
 	"/2.jpg",
 	"/3.jpg",
 	"/4.jpg"
@@ -16,7 +16,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = () => {
 		<Box alignItems="center" gap={6} position="relative" maxW="500px">
 			<Box
 				position="relative"
-				boxSize={{ base: "100%", md: "500px"}}
+				boxSize={{ base: "100%", md: "500px" }}
 				borderRadius="md"
 				overflow="hidden"
 				boxShadow="xl"
@@ -38,12 +38,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = () => {
 							These are sample images.
 						</Text>
 						<Text fontSize={{ base: "xl", md: "2xl", lg: "3xl" }} color="white" fontWeight="bold">
-							The Sakura Medal is scheduled to be released by late February.
+							The Sakura Medal is in production and will be released by late February.
 						</Text>
 					</Box>
 				</Box>
 			</Box>
-			<HStack spacing={{base:0,md:0}}>
+			<HStack spacing={{ base: 0, md: 0 }}>
 				{images.map((img, index) => (
 					<Box
 						key={index}
