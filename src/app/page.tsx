@@ -1,3 +1,4 @@
+// src/app/page.tsx
 "use client";
 
 import React from "react";
@@ -24,6 +25,7 @@ import Privacy from "components/Privacy";
 const Home: React.FC = () => {
 	return (
 		<>
+			
 			<Box position="relative">
 				<Box
 					position="sticky"
@@ -92,7 +94,7 @@ const Home: React.FC = () => {
 					</StyledText>
 				</Box>
 			</Box>
-			<Checkout/>
+			<Checkout />
 			<Flex
 				py={6}
 				px={10}
@@ -100,7 +102,7 @@ const Home: React.FC = () => {
 				bg="pink.200"
 				align="center"
 				justify="flex-end"
-				gap={{base:1,md:4}}
+				gap={{ base: 1, md: 4 }}
 				direction={{ base: "column", md: "row" }}
 			>
 				<StyledText lang="en">
