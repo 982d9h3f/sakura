@@ -21,7 +21,6 @@ import Section2 from '../../../../components/Section2';
 import axios from 'axios';
 import SpinningBoxes from '../../../../components/SpinningBoxes';
 import StoryText from '../../../../components/StoryText';
-import CheckoutContent from '../../../../components/CheckoutContent';
 import { Colab, emptyColab } from '@/lib/types/Colab';
 import Link from 'next/link';
 import StyledText from 'components/StyledText';
@@ -30,7 +29,6 @@ import Terms from "components/Terms";
 import InfoModal from "components/InfoModal";
 import Checkout from "components/Checkout";
 import ImageGallery from "components/ImageGallery";
-import ProductInfo from 'components/ProductInfo';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
