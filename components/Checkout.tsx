@@ -9,7 +9,7 @@ interface CheckoutProps {
 const Checkout: React.FC<CheckoutProps> = ({ }) => {
 	return (
 		<Flex
-			h="100vh"
+			h={{base:"100%",md:"100vh"}}
 			bg="white"
 			justifyContent="space-between"
 			alignItems="center"

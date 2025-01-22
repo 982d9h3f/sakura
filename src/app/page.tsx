@@ -6,6 +6,7 @@ import {
 	Box,
 	Flex,
 	Image,
+	useBreakpointValue,
 } from "@chakra-ui/react";
 import MainVisual from "../../components/MainVisual";
 import SectionImages from "../../components/SectionImages";
@@ -23,9 +24,10 @@ import StyledText from "components/StyledText";
 import Terms from "components/Terms";
 import Privacy from "components/Privacy";
 const Home: React.FC = () => {
+	const showMedalViewer = useBreakpointValue({ base: "none", md: "block" });
+	const showMedalImage = useBreakpointValue({ base: "flex", md: "none" });
 	return (
 		<>
-			
 			<Box position="relative">
 				<Box
 					position="sticky"
@@ -63,8 +65,16 @@ const Home: React.FC = () => {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Box>
+							<Box display={showMedalViewer}>
 								<MedalViewer width={400} height={400} />
+							</Box>
+							<Box
+								w="100%"
+								maxW="400px"
+								mr="5px"
+								display={showMedalImage}
+							>
+								<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
 							</Box>
 						</Box>
 					</Flex>
@@ -94,7 +104,7 @@ const Home: React.FC = () => {
 					</StyledText>
 				</Box>
 			</Box>
-			<Checkout />
+			<Checkout/>
 			<Flex
 				py={6}
 				px={10}

@@ -13,6 +13,7 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 	Button,
+	Flex,
 } from '@chakra-ui/react';
 import { fetchAndDecryptFiles2 } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
@@ -23,6 +24,13 @@ import StoryText from '../../../../components/StoryText';
 import CheckoutContent from '../../../../components/CheckoutContent';
 import { Colab, emptyColab } from '@/lib/types/Colab';
 import Link from 'next/link';
+import StyledText from 'components/StyledText';
+import Privacy from "components/Privacy";
+import Terms from "components/Terms";
+import InfoModal from "components/InfoModal";
+import Checkout from "components/Checkout";
+import ImageGallery from "components/ImageGallery";
+import ProductInfo from 'components/ProductInfo';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -93,6 +101,24 @@ const UserPage: React.FC = () => {
 					textAlign="center"
 				>
 					<Box w="100%">
+						<Flex
+							py={6} px={0}
+							w="100%"
+							textAlign="end"
+							bg="pink.200"
+							align="center"
+							justify="flex-end"
+							gap={{ base: 0, md: 0 }}
+							direction={{ base: "column", md: "column" }}
+							mb={5}
+						>
+							<InfoModal />
+							<Flex gap={4}>
+								<Privacy />
+								<Terms />
+							</Flex>
+							<StyledText lang="en">&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.</StyledText>
+						</Flex>
 						<Text>
 							{colab?.language == "jp" ? 'コラボ企画！！' : 'Collaboration'}
 						</Text>
@@ -103,7 +129,7 @@ const UserPage: React.FC = () => {
 							✕
 						</Text>
 						<Box w="100%"><img src={decryptedUrls[0]} /></Box>
-						<VStack spacing="100px" align="center" mt="100px">
+						<VStack spacing="100px" align="center" mt="100px" p={3}>
 							<Text fontSize="18px" textAlign="center" fontWeight="bold">
 								{colab?.language == "jp" ? colab?.textLpJP?.split(',')[0] || '' : colab?.textLpEN?.split(',')[0] || ''}
 							</Text>
@@ -125,6 +151,28 @@ const UserPage: React.FC = () => {
 								<Text fontSize="18px">
 									{colab?.language == "jp" ? colab?.textLpJP?.split(',')[2] || '' : colab?.textLpEN?.split(',')[2] || ''}
 								</Text>
+							</Box>
+
+							<Box
+								display="flex"
+								flexDirection="column"
+								alignItems="center"
+								justifyContent="center"
+								textAlign="center"
+								mt="-80px"
+							>
+								<Box>
+									<StyledText lang="en" color="gray.600">
+										Made in Japan
+									</StyledText>
+									<StyledText lang="en" color="gray.600">
+										20mm×20mm×1.5mm, Weight:4.7g
+									</StyledText>
+									<StyledText lang="en" color="gray.600">
+										With an engraved 99.9% Silver certification
+									</StyledText>
+								</Box>
+								<ImageGallery />
 							</Box>
 
 							<Text fontSize="lg" textAlign="center">
@@ -178,7 +226,7 @@ const UserPage: React.FC = () => {
 				</Container>
 				:
 				<Container
-					maxW="800px"
+					maxW="1200px"
 					borderRadius="lg"
 					p={{ base: 0, md: 8 }}
 					shadow="md"
@@ -189,25 +237,38 @@ const UserPage: React.FC = () => {
 					alignItems="center"
 					textAlign="center"
 				>
-					<Box w="100%" p={3}>
+					<Box w="100%">
 						<Box mt={0} textAlign="center">
 							<Link href="/" passHref>
 								<Button colorScheme="pink" size="md">
-									To the desktop site
+									To the brand site
 								</Button>
 							</Link>
 						</Box>
 						<Text fontSize="25px" textAlign="center" my={5}>
 							SAKURA Medal Story
 						</Text>
-						<StoryText />
-						<Box m={5} w="100%" textAlign="center">
-							<Box maxW="200px" mx="auto">
-								<img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/medal_trans.png`} alt="Medal" />
-							</Box>
+						<Box bg={{ base: "rgba(0,0,0,0.5)", md: "rgba(0,0,0,0)" }} p={5}>
+							<StoryText />
 						</Box>
-						<CheckoutContent />
+						<Box my="100px" />
+						<Checkout />
 					</Box>
+					<Flex
+						py={6} px={10}
+						w="100%"
+						textAlign="end"
+						bg="pink.200"
+						align="center"
+						justify="flex-end"
+						gap={{ base: 1, md: 4 }}
+						direction={{ base: "column", md: "row" }}
+					>
+						<StyledText lang="en">&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.</StyledText>
+						<Privacy />
+						<Terms />
+						<InfoModal />
+					</Flex>
 				</Container>
 			}
 		</Box>
