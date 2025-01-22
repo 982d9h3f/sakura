@@ -8,26 +8,26 @@ interface CheckoutProps {
 
 const Checkout: React.FC<CheckoutProps> = ({ }) => {
 	return (
-		<>
-			<Flex
-				h="100vh"
-				bg="white"
-				justifyContent="space-between"
-				alignItems="center"
-				px={10} // 左右に余白を加えて端からのバランス調整
-			>
-				<Flex justifyContent="center" alignItems="center" w="50%">
-					<Box maxW="800px" w="100%">
-						<CheckoutContent />
-					</Box>
-				</Flex>
-				<Flex justifyContent="center" alignItems="center" w="50%">
-					<Box w="100%">
-						<ImageGallery />
-					</Box>
-				</Flex>
+		<Flex
+			h="100vh"
+			bg="white"
+			justifyContent="space-between"
+			alignItems="center"
+			px={{ base: 0, md: 10 }}
+			direction={{ base: "column-reverse", md: "row" }}
+		>
+			<Flex justifyContent="center" alignItems="center" w={{ base: "100%", md: "50%" }} py={{base:"50px",md:0}}>
+				<Box maxW="800px" w="100%">
+					<CheckoutContent />
+				</Box>
 			</Flex>
-		</>);
+			<Flex justifyContent="center" alignItems="center" w={{ base: "100%", md: "50%" }}>
+				<Box w="100%">
+					<ImageGallery />
+				</Box>
+			</Flex>
+		</Flex>
+	);
 };
 
 export default Checkout;

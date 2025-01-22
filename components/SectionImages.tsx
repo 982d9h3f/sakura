@@ -24,8 +24,7 @@ const SectionImages: React.FC = () => {
 	};
 
 	return (
-		<Flex h="100vh" direction={{ base: "column", md: "row" }}>
-			{/* 左半分 */}
+		<Flex h={{base:"100%",md:"100vh"}} direction={{ base: "column", md: "row" }}>
 			<Box
 				bg="pink.100"
 				flex="1"
@@ -57,15 +56,13 @@ const SectionImages: React.FC = () => {
 							objectFit="cover"
 							borderRadius="lg"
 							boxShadow="md"
-							mt={{ base: -5, md: "-180px" }}
+							mt={{ base: "-180px", md: "-180px" }}
 							ml={{ base: 0, md: "20px" }}
 							mb={{ base: 8, md: 0 }}
 						/>
 					</FadeInWhenVisible>
 				</Box>
 			</Box>
-
-			{/* 右半分 */}
 			<Box
 				bg="white"
 				flex="1"

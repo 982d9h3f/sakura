@@ -19,9 +19,9 @@ const LargeImage: React.FC = () => {
 	};
 
 	return (
-		<Box h="100vh" w="100%" display="flex" justifyContent="center" alignItems="center">
+		<Flex h="100vh" w="100%" display="flex" justifyContent="center" alignItems="center" direction={{ base: "column", md: "row" }}>
 			<Box w="100%" display="flex" justifyContent="center" alignItems="center">
-				<Box h="100vh" w="100%" display="flex" justifyContent="center" alignItems="center">
+				<Box h={{base:"50vh",md:"100vh"}}  p={{base:10,md:0}} w="100%" display="flex" justifyContent="center" alignItems="center">
 					<Image
 						src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/5.webp`}
 						alt="Sakura 5"
@@ -30,13 +30,6 @@ const LargeImage: React.FC = () => {
 						boxShadow="md"
 					/>
 				</Box>
-				<Flex
-					position="absolute"
-					w="100%"
-					justifyContent="center"
-					alignItems="center"
-					flexDirection="row"
-				></Flex>
 			</Box>
 			<FadeInWhenVisible>
 				<Box p={10} w="100%" gap={10}>
@@ -51,7 +44,7 @@ const LargeImage: React.FC = () => {
 					</Text>
 				</Box>
 			</FadeInWhenVisible>
-		</Box>
+		</Flex>
 	);
 };
 

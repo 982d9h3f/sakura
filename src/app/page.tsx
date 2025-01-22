@@ -73,10 +73,6 @@ const Home: React.FC = () => {
 					<Box flex="1" />
 				</Flex>
 				<Story />
-				<Flex h="30vh" direction={{ base: "column", md: "row" }}>
-					<Box bg="white" flex="1" />
-					<Box flex="1" />
-				</Flex>
 				<Box
 					textAlign="center"
 					h="120vh"
@@ -85,6 +81,7 @@ const Home: React.FC = () => {
 					alignItems="center"
 					justifyContent="center"
 					bg="rgba(0,0,0,0.5)"
+					px={8}
 				>
 					<StyledText lang="en" color="white">
 						{`Their journey has only just begun. It reminds us of what Apple's early creations mean today.`}
@@ -103,13 +100,14 @@ const Home: React.FC = () => {
 				bg="pink.200"
 				align="center"
 				justify="flex-end"
-				gap={4}
+				gap={{base:1,md:4}}
+				direction={{ base: "column", md: "row" }}
 			>
 				<StyledText lang="en">
 					&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.
 				</StyledText>
-				<Privacy/>
-				<Terms/>
+				<Privacy />
+				<Terms />
 				<InfoModal />
 			</Flex>
 		</>
