@@ -13,7 +13,15 @@ const images = [
 const ImageGallery: React.FC<ImageGalleryProps> = () => {
 	const [selectedImage, setSelectedImage] = useState(images[0]);
 	return (
-		<Box alignItems="center" gap={6} position="relative" maxW="500px">
+		<Box
+			display="flex"
+			flexDirection="column"
+			alignItems="center"
+			gap={6}
+			position="relative"
+			maxW="500px"
+			mx="auto"
+		>
 			<Box
 				position="relative"
 				boxSize={{ base: "100%", md: "500px" }}
