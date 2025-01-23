@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Box, VStack, Heading, Text, Button } from '@chakra-ui/react';
 import StyledText from './StyledText';
-import { termsTextJp, termsTextEn,LegalText } from './TermsText';
+import { termsTextJp, termsTextEn, LegalText } from './TermsText';
 interface ModalProps {
 	onClose: () => void;
 	termsText: LegalText[];
@@ -58,20 +58,30 @@ const Modal: React.FC<ModalProps> = ({ onClose, termsText }) => {
 	);
 };
 
-const Terms = () => {
+interface TermsProps {
+	fontSize?: string;
+}
+
+const Terms: React.FC<TermsProps> = ({ fontSize = '16px' }) => {
 	const [isOpenJP, setIsOpenJP] = useState(false);
 	const [isOpenEN, setIsOpenEN] = useState(false);
 
 	const handleOpenModalJP = async () => {
 		setIsOpenJP(true);
 	};
+
 	const handleOpenModalEN = async () => {
 		setIsOpenEN(true);
 	};
 
 	return (
 		<Box textAlign="center">
-			<StyledText lang="jp" onClick={handleOpenModalEN} cursor="pointer" >
+			<StyledText
+				lang="jp"
+				onClick={handleOpenModalEN}
+				cursor="pointer"
+				fontSize={fontSize}
+			>
 				Terms of Use
 			</StyledText>
 			{isOpenEN && (
@@ -80,7 +90,12 @@ const Terms = () => {
 					termsText={termsTextEn}
 				/>
 			)}
-			<StyledText lang="jp" onClick={handleOpenModalJP} cursor="pointer" >
+			<StyledText
+				lang="jp"
+				onClick={handleOpenModalJP}
+				cursor="pointer"
+				fontSize={fontSize}
+			>
 				利用規約
 			</StyledText>
 			{isOpenJP && (

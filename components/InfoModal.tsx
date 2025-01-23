@@ -87,7 +87,11 @@ const Modal: React.FC<ModalProps> = ({ onClose, content }) => {
 	);
 };
 
-const InfoModal = () => {
+interface InfoModalProps {
+	fontSize?: string;
+  }
+
+  const InfoModal: React.FC<InfoModalProps> = ({ fontSize = '16px' }) => {
 	const [isOpenJP, setIsOpenJP] = useState(false);
 	const [isOpenEN, setIsOpenEN] = useState(false);
 	const [dataJP, setDataJP] = useState<FetchedContent | null>(null);
@@ -134,8 +138,8 @@ const InfoModal = () => {
 
 	return (
 		<Box textAlign="center">
-			<StyledText lang="en" onClick={handleOpenModalEN} cursor="pointer">
-				Consumer Protection Information
+			<StyledText lang="en" onClick={handleOpenModalEN} cursor="pointer" fontSize={fontSize}>
+				Consumer Protection
 			</StyledText>
 			{isOpenEN && (
 				<Modal
@@ -144,7 +148,7 @@ const InfoModal = () => {
 				/>
 			)}
 
-			<StyledText lang="jp" onClick={handleOpenModalJP} cursor="pointer">
+			<StyledText lang="jp" onClick={handleOpenModalJP} cursor="pointer" fontSize={fontSize}>
 				特定商取引法に基づく表記
 			</StyledText>
 			{isOpenJP && (

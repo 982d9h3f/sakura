@@ -19,10 +19,8 @@ const images = Array.from({ length: 8 }, (_, i) => {
 	return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/sakura/${imageIndex}.webp`;
 }).filter(Boolean);
 import MedalViewer from '../../components/MedalModel';
-import InfoModal from '../../components/InfoModal';
 import StyledText from "components/StyledText";
-import Terms from "components/Terms";
-import Privacy from "components/Privacy";
+import Footer from "components/Footer";
 const Home: React.FC = () => {
 	const showMedalViewer = useBreakpointValue({ base: "none", md: "block" });
 	const showMedalImage = useBreakpointValue({ base: "flex", md: "none" });
@@ -104,24 +102,8 @@ const Home: React.FC = () => {
 					</StyledText>
 				</Box>
 			</Box>
-			<Checkout/>
-			<Flex
-				py={6}
-				px={10}
-				textAlign="end"
-				bg="pink.200"
-				align="center"
-				justify="flex-end"
-				gap={{ base: 1, md: 4 }}
-				direction={{ base: "column", md: "row" }}
-			>
-				<StyledText lang="en">
-					&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.
-				</StyledText>
-				<Privacy />
-				<Terms />
-				<InfoModal />
-			</Flex>
+			<Checkout />
+			<Footer/>
 		</>
 	);
 };

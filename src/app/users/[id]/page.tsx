@@ -13,7 +13,6 @@ import {
 	AccordionPanel,
 	AccordionIcon,
 	Button,
-	Flex,
 } from '@chakra-ui/react';
 import { fetchAndDecryptFiles2 } from '../../../utils/crypto';
 import FullComponent from '../../../../components/FullComponent';
@@ -24,11 +23,9 @@ import StoryText from '../../../../components/StoryText';
 import { Colab, emptyColab } from '@/lib/types/Colab';
 import Link from 'next/link';
 import StyledText from 'components/StyledText';
-import Privacy from "components/Privacy";
-import Terms from "components/Terms";
-import InfoModal from "components/InfoModal";
 import Checkout from "components/Checkout";
 import ImageGallery from "components/ImageGallery";
+import Footer from 'components/Footer';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -99,24 +96,7 @@ const UserPage: React.FC = () => {
 					textAlign="center"
 				>
 					<Box w="100%">
-						<Flex
-							py={6} px={0}
-							w="100%"
-							textAlign="end"
-							bg="pink.200"
-							align="center"
-							justify="flex-end"
-							gap={{ base: 0, md: 0 }}
-							direction={{ base: "column", md: "column" }}
-							mb={5}
-						>
-							<InfoModal />
-							<Flex gap={4}>
-								<Privacy />
-								<Terms />
-							</Flex>
-							<StyledText lang="en">&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.</StyledText>
-						</Flex>
+						<Footer/>
 						<Text>
 							{colab?.language == "jp" ? 'コラボ企画！！' : 'Collaboration'}
 						</Text>
@@ -252,21 +232,7 @@ const UserPage: React.FC = () => {
 						<Box my="100px" />
 						<Checkout />
 					</Box>
-					<Flex
-						py={6} px={10}
-						w="100%"
-						textAlign="end"
-						bg="pink.200"
-						align="center"
-						justify="flex-end"
-						gap={{ base: 1, md: 4 }}
-						direction={{ base: "column", md: "row" }}
-					>
-						<StyledText lang="en">&copy; {new Date().getFullYear()} SAKURA. All Rights Reserved.</StyledText>
-						<Privacy />
-						<Terms />
-						<InfoModal />
-					</Flex>
+					<Footer />
 				</Container>
 			}
 		</Box>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Box, VStack, Heading, Text, Button } from '@chakra-ui/react';
 import StyledText from './StyledText';
-import { PrivacyTextJP,PrivacyTextEN,LegalText } from './PrivacyText';
+import { PrivacyTextJP, PrivacyTextEN, LegalText } from './PrivacyText';
 interface ModalProps {
 	onClose: () => void;
 	termsText: LegalText[];
@@ -58,12 +58,22 @@ const Modal: React.FC<ModalProps> = ({ onClose, termsText }) => {
 	);
 };
 
-const Privacy = () => {
+interface PrivacyProps {
+	fontSize?: string;
+}
+
+const Privacy: React.FC<PrivacyProps> = ({ fontSize = '14px' }) => {
 	const [isOpenJP, setIsOpenJP] = useState(false);
 	const [isOpenEN, setIsOpenEN] = useState(false);
+
 	return (
 		<Box textAlign="center">
-			<StyledText lang="jp" onClick={()=>setIsOpenEN(true)} cursor="pointer" >
+			<StyledText
+				lang="jp"
+				onClick={() => setIsOpenEN(true)}
+				cursor="pointer"
+				fontSize={fontSize}
+			>
 				Privacy Policy
 			</StyledText>
 			{isOpenEN && (
@@ -72,7 +82,12 @@ const Privacy = () => {
 					termsText={PrivacyTextEN}
 				/>
 			)}
-			<StyledText lang="jp" onClick={()=>setIsOpenJP(true)} cursor="pointer" >
+			<StyledText
+				lang="jp"
+				onClick={() => setIsOpenJP(true)}
+				cursor="pointer"
+				fontSize={fontSize}
+			>
 				プライバシーポリシー
 			</StyledText>
 			{isOpenJP && (
@@ -84,5 +99,6 @@ const Privacy = () => {
 		</Box>
 	);
 };
+
 
 export default Privacy;
