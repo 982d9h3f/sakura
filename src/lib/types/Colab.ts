@@ -1,5 +1,5 @@
 export interface Colab {
-	inviterId: string; // 招待者ID
+	creatorId: string; // 招待者ID
 	visitorId: string; // 訪問者ID
 	language: string; // 言語コード
 	userId: string; // ユーザーID
@@ -12,11 +12,11 @@ export interface Colab {
 	textMedalJP: string; // 日本語メダル
 	textMedalEN: string; // 英語メダル
 	postDate: string; // 投稿日
+	inviter:string;//宣伝者
+	pageUserIds:string;//ページ共同作成者ID
 }
-
-
 export const emptyColab: Colab = {
-	inviterId: '',
+	creatorId: '',
 	visitorId: '',
 	language: '',
 	userId: '',
@@ -29,4 +29,6 @@ export const emptyColab: Colab = {
 	textMedalJP: '',
 	textMedalEN: '',
 	postDate: '',
+	inviter:'',
+	pageUserIds:'',
 };

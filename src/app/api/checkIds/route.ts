@@ -13,10 +13,10 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 export async function POST(req: Request) {
 	try {
 		const body = await req.json();
-		const { visitorId, inviterId,lang } = body;
-		if (!visitorId || !inviterId || !lang) {
+		const { visitorId, creatorId,lang } = body;
+		if (!visitorId || !creatorId || !lang) {
 			return NextResponse.json(
-				{ message: 'Missing required fields: visitorId and inviterId' },
+				{ message: 'Missing required fields: visitorId and creatorId' },
 				{ status: 400 }
 			);
 		}
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 			TableName: tableName,
 			KeyConditionExpression: '#id = :idValue',
 			ExpressionAttributeNames: { '#id': 'id' },
-			ExpressionAttributeValues: { ':idValue': inviterId },
+			ExpressionAttributeValues: { ':idValue': creatorId },
 		};
 
 		const inviterData = await dynamoDB.query(inviterParams).promise();
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
 		if (!visitorExists || !inviterExists) {
 			return NextResponse.json(
-				{ success: false, message: 'Neither visitorId nor inviterId found in the table.' },
+				{ success: false, message: 'Neither visitorId nor creatorId found in the table.' },
 				{ status: 404 }
 			);
 		}

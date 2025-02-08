@@ -60,7 +60,7 @@ const getTotalShippingCost = (countryName: string, isRegistered: boolean): numbe
 // Export a named POST handler
 export async function POST(request: NextRequest) {
 	try {
-		const { selectedCountry, quantity, creatorId, userId, } = await request.json();
+		const { selectedCountry, quantity, creatorId, userId, inviterId, pageUserIds} = await request.json();
 		console.log('Request Data:', { selectedCountry, quantity });
 
 		const shippingCost = getTotalShippingCost(selectedCountry.label, true);
@@ -109,6 +109,8 @@ export async function POST(request: NextRequest) {
 				userId,
 				quantity,
 				orderId,
+				inviterId,
+				pageUserIds,
 			},
 		});
 

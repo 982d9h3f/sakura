@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
 		// テンポラリテーブルの最初のアイテムを取得
 		const value = tmpData.Items[0]?.value || '';
-		const [inviterId, visitorId, language] = value.split('_');
+		const [creatorId, visitorId, language] = value.split('_');
 
 		// キャッシュテーブルからデータを取得
 		const cacheTableName = `${process.env.NEXT_PUBLIC_DYNAMO_PREFIX}-cache`;
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 		*/
 		return NextResponse.json({
 			success: true,
-			inviterId,
+			creatorId,
 			visitorId,
 			language,
 			text,

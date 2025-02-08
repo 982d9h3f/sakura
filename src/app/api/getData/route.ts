@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
 		// テンポラリテーブルの最初のアイテムを取得
 		const value = tmpData.Items[0]?.value || '';
-		const [inviterId, visitorId, language] = value.split('_');
+		const [creatorId, visitorId, language,inviter,pageUserIds] = value.split('_');
 
 		// テンポラリテーブル削除
 		const deleteParams = {
@@ -40,12 +40,12 @@ export async function POST(req: Request) {
 			Key: { id },
 		};
 
-		// mySnap-sakura から default と inviterId を取得
+		// mySnap-sakura から default と creatorId を取得
 		const sakuraTableName = `mySnap-sakura`;
 		const sakuraBatchParams = {
 			RequestItems: {
 				[sakuraTableName]: {
-					Keys: [{ id: 'default' }, { id: inviterId }],
+					Keys: [{ id: 'default' }, { id: creatorId }],
 				},
 			},
 		};
@@ -59,22 +59,24 @@ export async function POST(req: Request) {
 		// sakura データの処理
 		const sakuraItems = sakuraData.Responses?.[sakuraTableName] || [];
 		const defaultItem = sakuraItems.find((item) => item.id === 'default') || {};
-		const inviterItem = sakuraItems.find((item) => item.id === inviterId) || {};
+		const creatorIdItem = sakuraItems.find((item) => item.id === creatorId) || {};
 
 		const mergedColab: Colab = {
-			inviterId,
+			creatorId,
 			visitorId,
 			language,
-			userId: inviterItem.userId || defaultItem.userId || '',
-			content: inviterItem.content || defaultItem.content || '',
-			contentTmp: inviterItem.contentTmp || defaultItem.contentTmp || '',
-			textJP: inviterItem.textJP || defaultItem.textJP || '',
-			textEN: inviterItem.textEN || defaultItem.textEN || '',
-			textLpJP: inviterItem.textLpJP || defaultItem.textLpJP || '',
-			textLpEN: inviterItem.textLpEN || defaultItem.textLpEN || '',
-			textMedalJP: inviterItem.textMedalJP || defaultItem.textMedalJP || '',
-			textMedalEN: inviterItem.textMedalEN || defaultItem.textMedalEN || '',
-			postDate: inviterItem.postDate || defaultItem.postDate || '',
+			userId: creatorIdItem.userId || defaultItem.userId || '',
+			content: creatorIdItem.content || defaultItem.content || '',
+			contentTmp: creatorIdItem.contentTmp || defaultItem.contentTmp || '',
+			textJP: creatorIdItem.textJP || defaultItem.textJP || '',
+			textEN: creatorIdItem.textEN || defaultItem.textEN || '',
+			textLpJP: creatorIdItem.textLpJP || defaultItem.textLpJP || '',
+			textLpEN: creatorIdItem.textLpEN || defaultItem.textLpEN || '',
+			textMedalJP: creatorIdItem.textMedalJP || defaultItem.textMedalJP || '',
+			textMedalEN: creatorIdItem.textMedalEN || defaultItem.textMedalEN || '',
+			postDate: creatorIdItem.postDate || defaultItem.postDate || '',
+			inviter,
+			pageUserIds,
 		};
 
 		// 結果を返す

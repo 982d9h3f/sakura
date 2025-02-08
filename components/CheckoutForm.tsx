@@ -40,8 +40,10 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 			const response = await axios.post('/api/calculate-shipping', {
 				selectedCountry,
 				quantity: 1,
-				creatorId: Colab?.inviterId,
+				creatorId: Colab?.creatorId,
 				userId: Colab?.visitorId,
+				inviterId:Colab?.inviter,
+				pageUserIds:Colab?.pageUserIds,
 			});
 			console.log('Server Response:', response.data);
 			if (response.status === 200 && response.data.url) {
