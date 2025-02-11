@@ -78,8 +78,8 @@ const CheckoutForm: React.FC<CheckoutProps> = ({ Colab }) => {
 				>
 					{Colab
 						? Colab.language === "jp"
-							? Colab.textMedalJP?.split(',')[5] || 'デフォルト日本語テキスト'
-							: Colab.textMedalEN?.split(',')[5] || 'Default English text'
+							? Colab.textMedalJP?.split(',')[2] || 'デフォルト日本語テキスト'
+							: Colab.textMedalEN?.split(',')[2] || 'Default English text'
 						: 'Proceed to order'}
 				</Button>
 			</Box>
