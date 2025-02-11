@@ -40,10 +40,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({Colab }) => {
 								</>)
 								:
 								(<>
-									<Text fontSize="12px">{Colab?.textMedalEN?.split(',')[3] || ''}</Text>
-									<Text fontSize="xl" fontWeight="bold" color="red.500">{`価格 : $33.00`}</Text>
-									<Text fontSize="12px" color="gray.500">{`（税込み）`}</Text>
-									<Text fontSize="12px" color="gray.500">{Colab?.textMedalEN?.split(',')[4] || ''}</Text>
+									<Text fontSize="14px">{Colab?.textMedalEN?.split(',')[3] || ''}</Text>
+									<Text fontSize="xl" fontWeight="bold" color="red.500">{`Price : $33.00`}</Text>
+									<Text fontSize="14px" color="gray.500">{`（税込み）`}</Text>
+									<Text fontSize="14px" color="gray.500">{Colab?.textMedalEN?.split(',')[4] || ''}</Text>
 								</>)
 							}
 						</Box>
