@@ -26,6 +26,7 @@ import StyledText from 'components/StyledText';
 import Checkout from "components/Checkout";
 import ImageGallery from "components/ImageGallery";
 import Footer from 'components/Footer';
+import Head from 'next/head';
 const UserPage: React.FC = () => {
 	const { id } = useParams() as { id: string };
 	const headerFontSize = useBreakpointValue({ base: '2xl', md: '4xl' });
@@ -76,10 +77,20 @@ const UserPage: React.FC = () => {
 		};
 	}, []);
 
+	const ogImage = `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/common/default/SakuraOgimage.png`
 
 	const d = useBreakpointValue({ base: 180, md: 220 });
 	if (!d) return null;
-	return (
+	return (<>
+		<Head>
+			<title>SAKURA Medal Collaboration</title>
+			<meta name="description" content="Discover the SAKURA Medal Collaboration, a unique and artistic partnership featuring exquisite designs and craftsmanship." />
+			<meta property="og:title" content="SAKURA Medal Collaboration" />
+			<meta property="og:description" content="A special collaboration bringing the beauty of SAKURA in a limited edition medal." />
+			<meta property="og:image" content={ogImage} />
+			<meta property="og:url" content={`https://sakura-sigma.vercel.app`} />
+			<meta name="twitter:card" content={ogImage} />
+		</Head>
 		<Box fontFamily="'Zen Maru Gothic', sans-serif" fontSize="16px">
 			<SpinningBoxes keepAnimation={!start && state == 0} />
 			{state == 1 ?
@@ -96,7 +107,7 @@ const UserPage: React.FC = () => {
 					textAlign="center"
 				>
 					<Box w="100%">
-						<Footer/>
+						<Footer />
 						<Text>
 							{colab?.language == "jp" ? 'コラボ企画！！' : 'Collaboration'}
 						</Text>
@@ -236,7 +247,7 @@ const UserPage: React.FC = () => {
 				</Container>
 			}
 		</Box>
-	);
+	</>);
 };
 
 export default UserPage;
