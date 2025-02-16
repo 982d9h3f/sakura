@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const colors = ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#CBA6FF'];
 
 interface SpinningBoxesProps {
-	keepAnimation?: boolean; // アニメーションをキープするオプション引数
+	keepAnimation?: boolean; // アニメーションをキープするオプション引
 }
 
 const SpinningBoxes: React.FC<SpinningBoxesProps> = ({ keepAnimation = false }) => {
